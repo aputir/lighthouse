@@ -1,12 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import {
-  getActiveCourse,
-  getCrewsWithMembers,
-  getEnrolledStudents,
-  removeCrewMember,
-} from "./actions";
+import { removeCrewMember } from "./actions";
 import { AddCrewForm } from "./add-crew-form";
 import { AddMemberForm } from "./add-member-form";
+import { getActiveCourse, getCrewsWithMembers, getEnrolledStudents } from "./queries";
 
 export default async function CrewsPage({
   params,

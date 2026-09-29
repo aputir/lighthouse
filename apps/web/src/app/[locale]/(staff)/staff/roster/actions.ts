@@ -2,8 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { generateInviteToken } from "@/lib/nanoid";
-import { courses, db, enrollments, invites, users } from "@lighthouse/db";
-import { and, eq } from "drizzle-orm";
+import { db, invites } from "@lighthouse/db";
 import { revalidatePath } from "next/cache";
 
 export async function createInvite(formData: FormData): Promise<string> {
@@ -34,23 +33,6 @@ export async function createInvite(formData: FormData): Promise<string> {
       },
     });
 
-  revalidatePath("/staff/roster");
+  revalidatePath("/[locale]/staff/roster", "page");
   return token;
-}
-
-export async function getStudents() {
-  const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
-  if (!course) return [];
-
-  return db
-    .select({
-      id: users.id,
-      name: users.name,
-      email: users.email,
-      studentId: users.studentId,
-      enrolledAt: enrollments.enrolledAt,
-    })
-    .from(enrollments)
-    .innerJoin(users, eq(enrollments.userId, users.id))
-    .where(and(eq(enrollments.courseId, course.id), eq(enrollments.active, true)));
 }

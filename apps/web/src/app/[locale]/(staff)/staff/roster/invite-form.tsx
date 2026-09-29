@@ -9,17 +9,25 @@ export function InviteForm({ locale }: { locale: string }) {
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setCopied(false);
-    const form = new FormData(e.currentTarget);
-    const token = await createInvite(form);
-    const baseUrl = window.location.origin;
-    setInviteUrl(`${baseUrl}/${locale}/invite/${token}`);
-    (e.target as HTMLFormElement).reset();
-    setLoading(false);
+    setError(null);
+    const form = e.currentTarget;
+    try {
+      const formData = new FormData(form);
+      const token = await createInvite(formData);
+      const baseUrl = window.location.origin;
+      setInviteUrl(`${baseUrl}/${locale}/invite/${token}`);
+      form.reset();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to create invite");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleCopy() {
@@ -47,6 +55,7 @@ export function InviteForm({ locale }: { locale: string }) {
           {loading ? t("creatingInvite") : t("createInviteButton")}
         </button>
       </form>
+      {error && <p className="text-xs text-red-600">{error}</p>}
       {inviteUrl && (
         <div className="rounded border bg-muted p-3 text-sm">
           <div className="flex items-center justify-between">

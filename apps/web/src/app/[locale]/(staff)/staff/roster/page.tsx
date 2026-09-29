@@ -1,8 +1,6 @@
-import { db, invites } from "@lighthouse/db";
-import { isNull } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
-import { getStudents } from "./actions";
 import { InviteForm } from "./invite-form";
+import { getPendingInvites, getStudents } from "./queries";
 
 export default async function RosterPage({
   params,
@@ -12,7 +10,7 @@ export default async function RosterPage({
   const { locale } = await params;
   const t = await getTranslations("staff.roster");
   const students = await getStudents();
-  const pendingInvites = await db.select().from(invites).where(isNull(invites.usedAt));
+  const pendingInvites = await getPendingInvites();
 
   const pendingCount =
     locale === "fa"

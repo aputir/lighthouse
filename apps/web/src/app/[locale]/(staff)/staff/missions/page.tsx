@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import { getActiveCourse, getChaptersWithMissions } from "./actions";
 import { AddChapterForm } from "./add-chapter-form";
 import { AddMissionForm } from "./add-mission-form";
+import { getActiveCourse, getChaptersWithMissions } from "./queries";
 
 export default async function MissionsPage({
   params,

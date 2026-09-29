@@ -2,13 +2,8 @@
 
 import { auth } from "@/lib/auth";
 import { chapters, courses, db, missions } from "@lighthouse/db";
-import { asc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-
-export async function getActiveCourse() {
-  const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
-  return course ?? null;
-}
 
 export async function createChapter(formData: FormData) {
   const session = await auth();
@@ -16,7 +11,7 @@ export async function createChapter(formData: FormData) {
     throw new Error("Unauthorized");
   }
 
-  const course = await getActiveCourse();
+  const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
   if (!course) {
     throw new Error("No active course");
   }
@@ -35,7 +30,7 @@ export async function createChapter(formData: FormData) {
     titleFa,
     order,
   });
-  revalidatePath("/staff/missions");
+  revalidatePath("/[locale]/staff/missions", "page");
 }
 
 export async function createMission(formData: FormData) {
@@ -61,20 +56,5 @@ export async function createMission(formData: FormData) {
     maxLumens,
     order,
   });
-  revalidatePath("/staff/missions");
-}
-
-export async function getChaptersWithMissions(courseId: string) {
-  const chapterList = await db
-    .select()
-    .from(chapters)
-    .where(eq(chapters.courseId, courseId))
-    .orderBy(asc(chapters.order));
-
-  const missionList = await db.select().from(missions).orderBy(asc(missions.order));
-
-  return chapterList.map((ch) => ({
-    ...ch,
-    missions: missionList.filter((m) => m.chapterId === ch.id),
-  }));
+  revalidatePath("/[locale]/staff/missions", "page");
 }

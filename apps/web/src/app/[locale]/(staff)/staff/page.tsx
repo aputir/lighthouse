@@ -1,6 +1,6 @@
 import { courses, enrollments } from "@lighthouse/db";
 import { db } from "@lighthouse/db";
-import { count, eq } from "drizzle-orm";
+import { and, count, eq } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 
 export default async function StaffPage({
@@ -17,7 +17,7 @@ export default async function StaffPage({
     ? await db
         .select({ count: count() })
         .from(enrollments)
-        .where(eq(enrollments.courseId, course.id))
+        .where(and(eq(enrollments.courseId, course.id), eq(enrollments.active, true)))
     : [{ count: 0 }];
 
   const countValue = studentCount[0]?.count ?? 0;
