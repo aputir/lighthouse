@@ -52,17 +52,19 @@ export function GradeGrid({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "Enter" || e.key === "ArrowDown") {
       e.preventDefault();
-      const form = e.currentTarget.closest("form");
-      form?.requestSubmit();
       if (index + 1 < rows.length) {
         inputRefs.current[index + 1]?.focus();
+      } else {
+        const form = e.currentTarget.closest("form");
+        form?.requestSubmit();
       }
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      const form = e.currentTarget.closest("form");
-      form?.requestSubmit();
       if (index - 1 >= 0) {
         inputRefs.current[index - 1]?.focus();
+      } else {
+        const form = e.currentTarget.closest("form");
+        form?.requestSubmit();
       }
     }
   };

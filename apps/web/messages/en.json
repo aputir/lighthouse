@@ -95,6 +95,7 @@
       "publishButton": "Publish {count} draft score(s)",
       "publishing": "Publishing...",
       "noStudents": "No enrolled students in this course.",
+      "noMissions": "No missions yet in this chapter.",
       "backToGrades": "Back to Grades"
     },
     "world": {

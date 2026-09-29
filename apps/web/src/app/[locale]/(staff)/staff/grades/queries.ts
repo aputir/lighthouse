@@ -82,7 +82,8 @@ export async function getMissionGradeData(missionId: string) {
     })
     .from(enrollments)
     .innerJoin(users, eq(enrollments.userId, users.id))
-    .where(and(eq(enrollments.courseId, course.id), eq(enrollments.active, true)));
+    .where(and(eq(enrollments.courseId, course.id), eq(enrollments.active, true)))
+    .orderBy(users.name);
 
   // Existing assessments for this mission
   const existingAssessments = await db

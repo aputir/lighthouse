@@ -69,6 +69,9 @@ export async function publishMissionScores(missionId: string, courseId: string):
     .where(eq(chapters.id, mission.chapterId))
     .limit(1);
   if (!chapter) throw new Error("Chapter not found");
+  if (chapter.courseId !== courseId) {
+    throw new Error("Mission does not belong to the specified course");
+  }
 
   const landmarkIndex = chapter.order - 1; // chapters are 1-indexed, landmarks are 0-indexed
 
@@ -144,7 +147,8 @@ export async function publishMissionScores(missionId: string, courseId: string):
       )
       .limit(1);
 
-    const stageChanged = !currentState || currentState.stage !== newStage;
+    const currentStage = currentState?.stage ?? "dormant";
+    const stageChanged = currentStage !== newStage;
 
     // 5. Upsert landmark state
     await tx
