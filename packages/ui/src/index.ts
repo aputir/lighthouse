@@ -111,8 +111,6 @@ export {
 
 // ── Composed ──
 export {
-  ConfirmDialog,
-  type ConfirmDialogProps,
   DataValue,
   type DataValueProps,
   formatDataValue,
@@ -121,6 +119,11 @@ export {
   FieldMessage,
   type FieldMessageProps,
 } from "@manovaspace/ui";
+
+export {
+  ConfirmDialog,
+  type ConfirmDialogProps,
+} from "./composed/confirm-dialog";
 
 export {
   FieldDescription,

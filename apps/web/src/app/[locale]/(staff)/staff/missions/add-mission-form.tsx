@@ -1,11 +1,25 @@
 "use client";
 
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+  Label,
+  Spinner,
+} from "@lighthouse/ui";
 import { useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { createMission } from "./actions";
 
 export function AddMissionForm({ chapterId, order }: { chapterId: string; order: number }) {
   const t = useTranslations("staff.missions");
+  const commonT = useTranslations("common");
+  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -15,39 +29,72 @@ export function AddMissionForm({ chapterId, order }: { chapterId: string; order:
     startTransition(async () => {
       await createMission(formData);
       form.reset();
+      setOpen(false);
     });
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-3 flex flex-wrap gap-2">
-      <input type="hidden" name="chapterId" value={chapterId} />
-      <input type="hidden" name="order" value={order} />
-      <input
-        name="title"
-        placeholder={t("missionTitleEnPlaceholder")}
-        required
-        className="rounded border px-2 py-1 text-sm"
-      />
-      <input
-        name="titleFa"
-        placeholder={t("missionTitleFaPlaceholder")}
-        required
-        className="rounded border px-2 py-1 text-sm"
-      />
-      <input
-        name="maxLumens"
-        type="number"
-        defaultValue={100}
-        placeholder={t("maxLumensPlaceholder")}
-        className="w-24 rounded border px-2 py-1 text-sm"
-      />
-      <button
-        type="submit"
-        disabled={isPending}
-        className="rounded bg-muted px-3 py-1 text-sm hover:bg-muted/80 disabled:opacity-50"
-      >
-        {isPending ? t("addingMission") : t("addMissionButton")}
-      </button>
-    </form>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline" size="sm">
+          {t("addMission")}
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("addMission")}</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input type="hidden" name="chapterId" value={chapterId} />
+          <input type="hidden" name="order" value={order} />
+          <div className="space-y-1.5">
+            <Label htmlFor={`mission-title-en-${chapterId}`}>
+              {t("missionTitleEnPlaceholder")}
+            </Label>
+            <Input
+              id={`mission-title-en-${chapterId}`}
+              name="title"
+              placeholder={t("missionTitleEnPlaceholder")}
+              required
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor={`mission-title-fa-${chapterId}`}>
+              {t("missionTitleFaPlaceholder")}
+            </Label>
+            <Input
+              id={`mission-title-fa-${chapterId}`}
+              name="titleFa"
+              placeholder={t("missionTitleFaPlaceholder")}
+              required
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor={`mission-max-lumens-${chapterId}`}>{t("maxLumensPlaceholder")}</Label>
+            <Input
+              id={`mission-max-lumens-${chapterId}`}
+              name="maxLumens"
+              type="number"
+              defaultValue={100}
+              placeholder={t("maxLumensPlaceholder")}
+              required
+            />
+          </div>
+          <DialogFooter className="gap-2 sm:justify-end">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              disabled={isPending}
+            >
+              {commonT("cancel")}
+            </Button>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? <Spinner className="size-4" /> : t("addMissionButton")}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

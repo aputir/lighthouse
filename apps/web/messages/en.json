@@ -1,7 +1,9 @@
 {
   "common": {
     "signOut": "Sign out",
-    "language": "Language"
+    "language": "Language",
+    "cancel": "Cancel",
+    "close": "Close"
   },
   "shell": {
     "openMenu": "Open menu",
@@ -34,6 +36,7 @@
     },
     "overview": "Overview",
     "students": "Students",
+    "noActiveCourse": "No active course. Create one first.",
     "roster": {
       "title": "Roster",
       "invite": "New Invite",

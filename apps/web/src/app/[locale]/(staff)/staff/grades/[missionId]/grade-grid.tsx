@@ -1,6 +1,22 @@
 "use client";
 
 import type { Assessment } from "@lighthouse/db";
+import {
+  Badge,
+  Button,
+  Card,
+  ConfirmDialog,
+  DataValue,
+  FieldMessage,
+  Input,
+  Spinner,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@lighthouse/ui";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { publishMissionScores, saveDraftScore } from "./actions";
@@ -76,35 +92,37 @@ export function GradeGrid({
       {rows.length === 0 ? (
         <p className="text-sm text-muted-foreground">{t("noStudents")}</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b">
-                <th className="py-2 text-start">{t("student")}</th>
-                <th className="py-2 text-start">{t("studentId")}</th>
-                <th className="py-2 text-start">{t("score")}</th>
-                <th className="py-2 text-start">{t("lumens")}</th>
-                <th className="py-2 text-start">{t("state")}</th>
-              </tr>
-            </thead>
-            <tbody>
+        <Card>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-start">{t("student")}</TableHead>
+                <TableHead className="text-start">{t("studentId")}</TableHead>
+                <TableHead className="text-start">{t("score")}</TableHead>
+                <TableHead className="text-start">{t("lumens")}</TableHead>
+                <TableHead className="text-start">{t("state")} </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {rows.map(({ student, assessment }, index) => {
                 const state = assessment?.state;
                 const lumens = assessment?.lumens;
                 const rawScore = assessment?.rawScore;
 
                 return (
-                  <tr key={student.id} className="border-b hover:bg-muted/20">
-                    <td className="py-2">
+                  <TableRow key={student.id}>
+                    <TableCell>
                       <div className="font-medium">{student.name}</div>
                       <div className="text-xs text-muted-foreground">{student.email}</div>
-                    </td>
-                    <td className="py-2 text-muted-foreground">{student.studentId ?? "—"}</td>
-                    <td className="py-2">
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {student.studentId ?? "—"}
+                    </TableCell>
+                    <TableCell>
                       <form action={saveDraftScore}>
                         <input type="hidden" name="missionId" value={missionId} />
                         <input type="hidden" name="userId" value={student.id} />
-                        <input
+                        <Input
                           ref={(el) => {
                             inputRefs.current[index] = el;
                           }}
@@ -120,66 +138,61 @@ export function GradeGrid({
                             const form = e.target.closest("form") as HTMLFormElement;
                             form?.requestSubmit();
                           }}
-                          className="w-24 rounded border px-2 py-1 text-center focus:ring-1 focus:ring-primary focus:outline-none"
+                          className="w-24 text-center"
                         />
                       </form>
-                    </td>
-                    <td className="py-2">
+                    </TableCell>
+                    <TableCell>
                       {lumens !== null && lumens !== undefined ? (
                         <span className="font-semibold text-primary">
-                          {isFa ? lumens.toLocaleString("fa-IR") : lumens}
+                          <DataValue value={lumens} locale={locale} />
                         </span>
                       ) : rawScore !== null && rawScore !== undefined ? (
                         <span className="text-xs text-muted-foreground">
                           ~
-                          {isFa
-                            ? Math.round((rawScore / 100) * maxLumens).toLocaleString("fa-IR")
-                            : Math.round((rawScore / 100) * maxLumens)}
+                          <DataValue
+                            value={Math.round((rawScore / 100) * maxLumens)}
+                            locale={locale}
+                          />
                         </span>
                       ) : (
                         "—"
                       )}
-                    </td>
-                    <td className="py-2">
-                      {state === "draft" && (
-                        <span className="inline-block rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800">
-                          {t("draft")}
-                        </span>
-                      )}
-                      {state === "published" && (
-                        <span className="inline-block rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                          {t("published")}
-                        </span>
-                      )}
-                      {state === "revised" && (
-                        <span className="inline-block rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                          {t("revised")}
-                        </span>
-                      )}
+                    </TableCell>
+                    <TableCell>
+                      {state === "draft" && <Badge variant="secondary">{t("draft")}</Badge>}
+                      {state === "published" && <Badge variant="default">{t("published")}</Badge>}
+                      {state === "revised" && <Badge variant="outline">{t("revised")}</Badge>}
                       {!state && (
                         <span className="text-xs text-muted-foreground">{t("notEntered")}</span>
                       )}
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 );
               })}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </Table>
+        </Card>
       )}
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <FieldMessage variant="error">{error}</FieldMessage>}
 
       {draftCount > 0 && (
         <div className="pt-2">
-          <button
-            type="button"
-            onClick={handlePublish}
-            disabled={publishing}
-            className="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90 disabled:opacity-50"
+          <ConfirmDialog
+            title={t("publishConfirmTitle")}
+            description={t("publishConfirmDescription")}
+            confirmLabel={t("publishConfirmButton")}
+            onConfirm={handlePublish}
           >
-            {publishing ? t("publishing") : t("publishButton", { count: formattedDraftCount })}
-          </button>
+            <Button disabled={publishing}>
+              {publishing ? (
+                <Spinner className="size-4" />
+              ) : (
+                t("publishButton", { count: formattedDraftCount })
+              )}
+            </Button>
+          </ConfirmDialog>
         </div>
       )}
     </div>

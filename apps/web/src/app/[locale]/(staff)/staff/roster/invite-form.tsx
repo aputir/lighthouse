@@ -1,11 +1,22 @@
 "use client";
 
+import {
+  Button,
+  Card,
+  CardContent,
+  FieldMessage,
+  Input,
+  Label,
+  Spinner,
+  useToast,
+} from "@lighthouse/ui";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { createInvite } from "./actions";
 
 export function InviteForm({ locale }: { locale: string }) {
   const t = useTranslations("staff.roster");
+  const { toast } = useToast();
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -34,39 +45,47 @@ export function InviteForm({ locale }: { locale: string }) {
     if (!inviteUrl) return;
     await navigator.clipboard.writeText(inviteUrl);
     setCopied(true);
+    toast({
+      title: t("copied"),
+    });
     setTimeout(() => setCopied(false), 2000);
   }
 
   return (
-    <div className="space-y-3">
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          name="email"
-          type="email"
-          required
-          placeholder={t("emailPlaceholder")}
-          className="flex-1 rounded border px-3 py-2 text-sm"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded bg-primary px-4 py-2 text-sm text-white disabled:opacity-50"
-        >
-          {loading ? t("creatingInvite") : t("createInviteButton")}
-        </button>
-      </form>
-      {error && <p className="text-xs text-red-600">{error}</p>}
-      {inviteUrl && (
-        <div className="rounded border bg-muted p-3 text-sm">
-          <div className="flex items-center justify-between">
-            <p className="font-medium">{t("inviteLinkNotice")}</p>
-            <button type="button" onClick={handleCopy} className="text-xs text-primary underline">
-              {copied ? t("copied") : t("copyLink")}
-            </button>
+    <Card>
+      <CardContent className="space-y-4 pt-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
+            <div className="flex-1 space-y-1.5">
+              <Label htmlFor="invite-email">{t("email")}</Label>
+              <Input
+                id="invite-email"
+                name="email"
+                type="email"
+                required
+                placeholder={t("emailPlaceholder")}
+              />
+            </div>
+            <Button type="submit" disabled={loading}>
+              {loading ? <Spinner className="size-4" /> : t("createInviteButton")}
+            </Button>
           </div>
-          <code className="mt-1 block break-all text-xs">{inviteUrl}</code>
-        </div>
-      )}
-    </div>
+          {error && <FieldMessage variant="error">{error}</FieldMessage>}
+        </form>
+        {inviteUrl && (
+          <div className="rounded-md border bg-muted/50 p-3 text-sm">
+            <div className="flex items-center justify-between">
+              <p className="font-medium">{t("inviteLinkNotice")}</p>
+              <Button type="button" variant="ghost" size="sm" onClick={handleCopy}>
+                {copied ? t("copied") : t("copyLink")}
+              </Button>
+            </div>
+            <code className="mt-1 block break-all font-mono text-xs text-foreground/80">
+              {inviteUrl}
+            </code>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }

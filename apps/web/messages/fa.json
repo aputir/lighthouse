@@ -1,7 +1,9 @@
 {
   "common": {
     "signOut": "خروج",
-    "language": "زبان"
+    "language": "زبان",
+    "cancel": "انصراف",
+    "close": "بستن"
   },
   "shell": {
     "openMenu": "باز کردن منو",
@@ -34,6 +36,7 @@
     },
     "overview": "نمای کلی",
     "students": "دانشجویان",
+    "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
     "roster": {
       "title": "فهرست دانشجویان",
       "invite": "دعوت‌نامه جدید",

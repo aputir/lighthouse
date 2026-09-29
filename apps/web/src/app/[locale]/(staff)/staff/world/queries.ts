@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { courses, db, landmarkStates } from "@lighthouse/db";
+import { courses, db, landmarkStates, landmarkThresholds } from "@lighthouse/db";
 import { eq } from "drizzle-orm";
 
 export async function getWorldState() {
@@ -11,13 +11,14 @@ export async function getWorldState() {
   const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
   if (!course) return null;
 
-  const states = await db
-    .select()
-    .from(landmarkStates)
-    .where(eq(landmarkStates.courseId, course.id));
+  const [states, thresholds] = await Promise.all([
+    db.select().from(landmarkStates).where(eq(landmarkStates.courseId, course.id)),
+    db.select().from(landmarkThresholds).where(eq(landmarkThresholds.courseId, course.id)),
+  ]);
 
   return {
     course,
     states,
+    thresholds,
   };
 }

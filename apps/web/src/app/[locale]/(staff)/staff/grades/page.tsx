@@ -1,3 +1,12 @@
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  DataValue,
+  EmptyState,
+} from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { getGradesOverview } from "./queries";
@@ -15,66 +24,61 @@ export default async function GradesListPage({
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("noActiveCourse")}</p>
+        <EmptyState title={t("noActiveCourse")} />
       </div>
     );
   }
 
   const { chapters, missions, draftMap } = data;
-  const isFa = locale === "fa";
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">{t("title")}</h1>
 
       {chapters.length === 0 ? (
-        <p className="text-sm text-muted-foreground">{t("noMissions")}</p>
+        <EmptyState title={t("noMissions")} />
       ) : (
         chapters.map((ch) => {
           const chapterMissions = missions.filter((m) => m.chapterId === ch.id);
-          const chapterOrder = isFa ? ch.order.toLocaleString("fa-IR") : ch.order;
+          const chapterTitle = locale === "fa" ? ch.titleFa : ch.title;
 
           return (
-            <div key={ch.id} className="rounded border p-4">
-              <h2 className="mb-3 font-semibold">
-                {chapterOrder}. {isFa ? ch.titleFa : ch.title}
-              </h2>
+            <Card key={ch.id}>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold">
+                  <DataValue value={ch.order} locale={locale} />. {chapterTitle}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {chapterMissions.length === 0 ? (
+                  <p className="text-xs text-muted-foreground">{t("noMissions")}</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {chapterMissions.map((m) => {
+                      const drafts = draftMap.get(m.id) ?? 0;
+                      const missionTitle = locale === "fa" ? m.titleFa : m.title;
 
-              {chapterMissions.length === 0 ? (
-                <p className="text-xs text-muted-foreground">{t("noMissions")}</p>
-              ) : (
-                <ul className="space-y-2 ps-4">
-                  {chapterMissions.map((m) => {
-                    const drafts = draftMap.get(m.id) ?? 0;
-                    const formattedDrafts = isFa
-                      ? drafts.toLocaleString("fa-IR")
-                      : drafts.toString();
-                    const formattedMaxLumens = isFa
-                      ? m.maxLumens.toLocaleString("fa-IR")
-                      : m.maxLumens.toString();
-
-                    return (
-                      <li key={m.id}>
-                        <Link
-                          href={`/${locale}/staff/grades/${m.id}`}
-                          className="inline-flex items-center text-sm font-medium hover:underline"
-                        >
-                          <span>{isFa ? m.titleFa : m.title}</span>
-                          <span className="ms-2 text-xs text-muted-foreground">
-                            ({formattedMaxLumens} {t("lumens")})
-                          </span>
-                          {drafts > 0 && (
-                            <span className="ms-2 rounded bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800">
-                              {t("drafts", { count: formattedDrafts })}
+                      return (
+                        <li key={m.id}>
+                          <Link
+                            href={`/${locale}/staff/grades/${m.id}`}
+                            className="inline-flex items-center gap-2 text-sm font-medium transition hover:underline"
+                          >
+                            <span>{missionTitle}</span>
+                            <span className="text-xs text-muted-foreground">
+                              (<DataValue value={m.maxLumens} locale={locale} /> {t("lumens")})
                             </span>
-                          )}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
+                            {drafts > 0 && (
+                              <Badge variant="secondary">{t("drafts", { count: drafts })}</Badge>
+                            )}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </CardContent>
+            </Card>
           );
         })
       )}
