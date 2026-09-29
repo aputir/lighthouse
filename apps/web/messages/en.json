@@ -1,4 +1,12 @@
 {
+  "common": {
+    "signOut": "Sign out",
+    "language": "Language"
+  },
+  "shell": {
+    "openMenu": "Open menu",
+    "navigation": "Navigation"
+  },
   "app": {
     "name": "The Lighthouse",
     "tagline": "Advanced Programming Course — University of Tehran"
@@ -96,7 +104,10 @@
       "publishing": "Publishing...",
       "noStudents": "No enrolled students in this course.",
       "noMissions": "No missions yet in this chapter.",
-      "backToGrades": "Back to Grades"
+      "backToGrades": "Back to Grades",
+      "publishConfirmTitle": "Publish grades?",
+      "publishConfirmDescription": "Publishing will compute Lumens, update landmark stages, and create Ship's Log entries. This cannot be undone.",
+      "publishConfirmButton": "Publish grades"
     },
     "world": {
       "title": "Harbor World State",

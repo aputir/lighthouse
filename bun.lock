@@ -20,6 +20,8 @@
       "dependencies": {
         "@lighthouse/db": "workspace:*",
         "@lighthouse/ui": "workspace:*",
+        "@manovaspace/tokens": "^0.1.3",
+        "@manovaspace/ui": "^0.3.0",
         "bcryptjs": "^3.0.3",
         "drizzle-orm": "^0.38.4",
         "next": "^15.1.6",

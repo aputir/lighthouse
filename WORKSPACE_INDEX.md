@@ -19,7 +19,7 @@ Keep entries concise, dense, and factual.
   Public routes: harbor map, login, leaderboard.
   Student routes (auth): dashboard, missions, crew, harbor.
   Staff routes (staff role): grades grid, roster, course management, world preview.
-  Stack: Next.js 15, TypeScript, Tailwind CSS v4, @fontsource-variable/estedad, shadcn/ui, Auth.js v5, next-intl.
+  Stack: Next.js 15, TypeScript, Tailwind CSS v4, @lighthouse/ui (@manovaspace/ui + @manovaspace/tokens), Auth.js v5, next-intl.
   Commands: `bun run dev` (starts on port 3000), `bun run build`, `bun run typecheck`, `bun run lint`.
   Deploy: Vercel. Domain: aput.ir.
 - **See**: packages.db, packages.ui
@@ -52,12 +52,13 @@ Keep entries concise, dense, and factual.
 - **See**: apps.web
 
 ## [packages.ui]
-- **Aliases**: ui, components, design-system, shadcn
+- **Aliases**: ui, components, design-system, manova
 - **Path**: `packages/ui/`
-- **Short**: Shared shadcn/ui component wrappers and Tailwind design tokens.
+- **Short**: Manova/Goldstein design system integration and Lighthouse domain components.
 - **Card**:
-  Thin wrapper around shadcn/ui for consistent use across apps.
-  Design tokens: Tailwind CSS v4 custom properties.
+  Re-exports `@manovaspace/ui` primitives, composed components, shell components, and icons.
+  Design tokens: `@manovaspace/tokens` (Tailwind CSS v4 custom properties).
+  Domain components: LandmarkStageBadge.
   RTL-compatible (Tailwind logical properties for Persian layout).
 
 # Domain Model
