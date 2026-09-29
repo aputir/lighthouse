@@ -4,6 +4,16 @@ import {
   STAGE_NAMES_EN,
   STAGE_NAMES_FA,
 } from "@/lib/progression";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  DataValue,
+  EmptyState,
+  LandmarkStageBadge,
+  Progress,
+} from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import { getWorldState } from "./queries";
 
@@ -21,20 +31,14 @@ export default async function WorldPage({
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("noActiveCourse")}</p>
+        <EmptyState title={t("noActiveCourse")} />
       </div>
     );
   }
 
-  const { states } = data;
+  const { states, thresholds } = data;
   const stateMap = new Map(states.map((s) => [s.landmarkIndex, s]));
-
-  const stageBadgeClasses = {
-    dormant: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-    under_restoration: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
-    operational: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
-    flourishing: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
-  };
+  const thresholdMap = new Map(thresholds.map((th) => [th.landmarkIndex, th]));
 
   return (
     <div className="space-y-6">
@@ -49,29 +53,45 @@ export default async function WorldPage({
           const stage = state?.stage ?? "dormant";
           const stageLabel = isFa ? STAGE_NAMES_FA[stage] : STAGE_NAMES_EN[stage];
           const totalLumens = state?.totalLumens ?? 0;
-          const formattedLumens = isFa
-            ? totalLumens.toLocaleString("fa-IR")
-            : totalLumens.toString();
+
+          const threshold = thresholdMap.get(i) ?? {
+            toUnderRestoration: 500,
+            toOperational: 1500,
+            toFlourishing: 3000,
+          };
+
+          let targetLumens = threshold.toUnderRestoration;
+          if (stage === "under_restoration") {
+            targetLumens = threshold.toOperational;
+          } else if (stage === "operational" || stage === "flourishing") {
+            targetLumens = threshold.toFlourishing;
+          }
+
+          const progressPercentage = Math.min(100, Math.round((totalLumens / targetLumens) * 100));
 
           return (
-            <div
-              key={nameEn}
-              className="flex flex-col justify-between rounded-lg border bg-card p-4 shadow-sm"
-            >
+            <Card key={nameEn} className="flex flex-col justify-between">
               <div>
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-semibold">{landmarkName}</h3>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${stageBadgeClasses[stage]}`}
-                  >
-                    {stageLabel}
-                  </span>
-                </div>
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <CardTitle className="text-base font-semibold">{landmarkName}</CardTitle>
+                    <LandmarkStageBadge stage={stage}>{stageLabel}</LandmarkStageBadge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>{t("lumens")}</span>
+                      <span>
+                        <DataValue value={totalLumens} locale={locale} /> /{" "}
+                        <DataValue value={targetLumens} locale={locale} />
+                      </span>
+                    </div>
+                    <Progress value={progressPercentage} />
+                  </div>
+                </CardContent>
               </div>
-              <div className="mt-4 pt-2 border-t text-xs text-muted-foreground">
-                <span className="font-medium text-foreground">{formattedLumens}</span> {t("lumens")}
-              </div>
-            </div>
+            </Card>
           );
         })}
       </div>

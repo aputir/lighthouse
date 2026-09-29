@@ -1,10 +1,14 @@
-// Exported for future use by student harbor view
-export function LandmarkBadge({ stage }: { stage: string }) {
-  const icons: Record<string, string> = {
-    dormant: "⬜",
-    under_restoration: "🔧",
-    operational: "🔵",
-    flourishing: "🌟",
-  };
-  return <span>{icons[stage] ?? "⬜"}</span>;
+import { LandmarkStageBadge } from "@lighthouse/ui";
+
+const STAGE_ICONS: Record<string, string> = {
+  dormant: "⬜",
+  under_restoration: "🔧",
+  operational: "🔵",
+  flourishing: "🌟",
+};
+
+export function LandmarkBadge({ stage, label }: { stage: string; label?: string }) {
+  return (
+    <LandmarkStageBadge stage={stage}>{label ?? STAGE_ICONS[stage] ?? "⬜"}</LandmarkStageBadge>
+  );
 }

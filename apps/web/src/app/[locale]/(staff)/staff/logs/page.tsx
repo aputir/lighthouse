@@ -1,4 +1,5 @@
 import { STAGE_NAMES_EN, STAGE_NAMES_FA } from "@/lib/progression";
+import { Card, CardContent, EmptyState, LandmarkStageBadge } from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import { getShipLogs } from "./queries";
 
@@ -16,28 +17,21 @@ export default async function LogsPage({
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("noActiveCourse")}</p>
+        <EmptyState title={t("noActiveCourse")} />
       </div>
     );
   }
 
   const { logs } = data;
 
-  const stageBadgeClasses = {
-    dormant: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-    under_restoration: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
-    operational: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
-    flourishing: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
-  };
-
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">{t("title")}</h1>
 
       {logs.length === 0 ? (
-        <p className="text-muted-foreground">{t("noEvents")}</p>
+        <EmptyState title={t("noEvents")} />
       ) : (
-        <ul className="space-y-3">
+        <div className="space-y-3">
           {logs.map((log) => {
             const stageLabel = log.newStage
               ? isFa
@@ -46,33 +40,32 @@ export default async function LogsPage({
               : null;
 
             return (
-              <li
-                key={log.id}
-                className="flex items-start justify-between rounded-lg border bg-card p-4 shadow-sm"
-              >
-                <div>
-                  <p className="font-medium">{isFa ? log.bodyFa : log.bodyEn}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {new Date(log.triggeredAt).toLocaleDateString(isFa ? "fa-IR" : "en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                </div>
-                {log.newStage && (
-                  <span
-                    className={`ms-4 rounded-full px-2.5 py-0.5 text-xs font-medium shrink-0 ${stageBadgeClasses[log.newStage]}`}
-                  >
-                    {stageLabel}
-                  </span>
-                )}
-              </li>
+              <Card key={log.id}>
+                <CardContent className="flex items-start justify-between p-4">
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-foreground">
+                      {isFa ? log.bodyFa : log.bodyEn}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(log.triggeredAt).toLocaleDateString(isFa ? "fa-IR" : "en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                  {log.newStage && stageLabel && (
+                    <LandmarkStageBadge stage={log.newStage} className="ms-4 shrink-0">
+                      {stageLabel}
+                    </LandmarkStageBadge>
+                  )}
+                </CardContent>
+              </Card>
             );
           })}
-        </ul>
+        </div>
       )}
     </div>
   );

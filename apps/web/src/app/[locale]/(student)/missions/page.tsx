@@ -1,14 +1,16 @@
 import { auth } from "@/lib/auth";
 import { getStudentProgress } from "@/lib/student-data";
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  EmptyState,
+  formatLocaleInteger,
+} from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
-
-const STATE_STYLES: Record<string, string> = {
-  draft: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
-  published: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
-  revised: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
-  awaiting: "bg-muted text-muted-foreground",
-};
 
 const STATE_KEYS: Record<string, string> = {
   draft: "states.underReview",
@@ -16,6 +18,23 @@ const STATE_KEYS: Record<string, string> = {
   revised: "states.revised",
   awaiting: "states.awaiting",
 };
+
+function getMissionBadge(stateKey: string, label: string) {
+  switch (stateKey) {
+    case "draft":
+      return <Badge variant="secondary">{label}</Badge>;
+    case "published":
+      return <Badge variant="default">{label}</Badge>;
+    case "revised":
+      return <Badge variant="outline">{label}</Badge>;
+    default:
+      return (
+        <Badge variant="outline" className="text-muted-foreground">
+          {label}
+        </Badge>
+      );
+  }
+}
 
 export default async function MissionsPage({
   params,
@@ -32,7 +51,14 @@ export default async function MissionsPage({
   const t = await getTranslations("student.missions");
   const progress = await getStudentProgress(session.user.id);
 
-  if (!progress) return <p className="text-muted-foreground">{t("noCourse")}</p>;
+  if (!progress) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
+        <EmptyState title={t("noCourse")} />
+      </div>
+    );
+  }
 
   // Group by chapter
   const byChapter = new Map<string, typeof progress.missions>();
@@ -50,52 +76,52 @@ export default async function MissionsPage({
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">{t("title")}</h1>
       {byChapter.size === 0 ? (
-        <p className="text-muted-foreground">{t("noMissions")}</p>
+        <EmptyState title={t("noMissions")} />
       ) : (
-        [...byChapter.values()].map((missionGroup) => {
-          const first = missionGroup[0];
-          if (!first) return null;
-          const chapter = first.chapter;
-          return (
-            <div key={chapter.id}>
-              <h2 className="mb-3 font-semibold">
-                {isFa ? chapter.order.toLocaleString("fa-IR") : chapter.order}.{" "}
-                {isFa ? chapter.titleFa : chapter.title}
-              </h2>
-              <ul className="space-y-2 ps-4">
-                {missionGroup.map(({ mission, assessment }) => {
-                  const stateKey = assessment?.state ?? "awaiting";
-                  const badgeStyle = STATE_STYLES[stateKey] ?? STATE_STYLES.awaiting;
-                  const badgeLabelKey = STATE_KEYS[stateKey] ?? STATE_KEYS.awaiting;
-                  return (
-                    <li
-                      key={mission.id}
-                      className="flex items-center justify-between rounded border p-3"
-                    >
-                      <div>
-                        <p className="font-medium">
-                          {isFa ? mission.order.toLocaleString("fa-IR") : mission.order}.{" "}
-                          {isFa ? mission.titleFa : mission.title}
-                        </p>
-                        <span
-                          className={`mt-1 inline-block rounded px-2 py-0.5 text-xs font-medium ${badgeStyle}`}
+        <div className="space-y-6">
+          {[...byChapter.values()].map((missionGroup) => {
+            const first = missionGroup[0];
+            if (!first) return null;
+            const chapter = first.chapter;
+            return (
+              <Card key={chapter.id}>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg font-semibold">
+                    {formatLocaleInteger(chapter.order, locale)}.{" "}
+                    {isFa ? chapter.titleFa : chapter.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="divide-y divide-border">
+                    {missionGroup.map(({ mission, assessment }) => {
+                      const stateKey = assessment?.state ?? "awaiting";
+                      const badgeLabelKey = STATE_KEYS[stateKey] ?? STATE_KEYS.awaiting;
+                      return (
+                        <li
+                          key={mission.id}
+                          className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
                         >
-                          {t(badgeLabelKey)}
-                        </span>
-                      </div>
-                      {assessment?.lumens !== null && assessment?.lumens !== undefined && (
-                        <span className="text-sm font-semibold">
-                          {isFa ? assessment.lumens.toLocaleString("fa-IR") : assessment.lumens}{" "}
-                          {t("lumenShort")}
-                        </span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })
+                          <div className="space-y-1">
+                            <p className="font-medium text-sm sm:text-base">
+                              {formatLocaleInteger(mission.order, locale)}.{" "}
+                              {isFa ? mission.titleFa : mission.title}
+                            </p>
+                            <div>{getMissionBadge(stateKey, t(badgeLabelKey))}</div>
+                          </div>
+                          {assessment?.lumens !== null && assessment?.lumens !== undefined && (
+                            <span className="text-sm font-semibold tabular-nums">
+                              {formatLocaleInteger(assessment.lumens, locale)} {t("lumenShort")}
+                            </span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       )}
     </div>
   );

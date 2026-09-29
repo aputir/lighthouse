@@ -19,7 +19,7 @@ Keep entries concise, dense, and factual.
   Public routes: harbor map, login, leaderboard.
   Student routes (auth): dashboard, missions, crew, harbor.
   Staff routes (staff role): grades grid, roster, course management, world preview.
-  Stack: Next.js 15, TypeScript, Tailwind CSS v4, @fontsource-variable/estedad, shadcn/ui, Auth.js v5, next-intl.
+  Stack: Next.js 15, TypeScript, Tailwind CSS v4, @lighthouse/ui (@manovaspace/ui + @manovaspace/tokens), Auth.js v5, next-intl.
   Commands: `bun run dev` (starts on port 3000), `bun run build`, `bun run typecheck`, `bun run lint`.
   Deploy: Vercel. Domain: aput.ir.
 - **See**: packages.db, packages.ui
@@ -52,13 +52,16 @@ Keep entries concise, dense, and factual.
 - **See**: apps.web
 
 ## [packages.ui]
-- **Aliases**: ui, components, design-system, shadcn
+- **Aliases**: ui, components, design-system, shadcn, manova, orbit
 - **Path**: `packages/ui/`
-- **Short**: Shared shadcn/ui component wrappers and Tailwind design tokens.
+- **Package**: `@lighthouse/ui`
+- **Short**: Thin re-export wrapper over `@manovaspace/ui` + `@manovaspace/tokens` with Lighthouse domain components.
 - **Card**:
-  Thin wrapper around shadcn/ui for consistent use across apps.
-  Design tokens: Tailwind CSS v4 custom properties.
-  RTL-compatible (Tailwind logical properties for Persian layout).
+  Re-exports all primitives, composed components (EmptyState, ConfirmDialog, DataValue, Shell),
+  and utilities from `@manovaspace/ui@0.3.0`.
+  Adds domain components: LandmarkStageBadge.
+  Lighthouse-specific theming via globals.css `@theme inline` binding.
+  Stack: @manovaspace/ui, @manovaspace/tokens, React 19, Tailwind CSS v4.
 
 # Domain Model
 

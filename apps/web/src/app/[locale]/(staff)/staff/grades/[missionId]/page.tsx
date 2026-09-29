@@ -1,3 +1,4 @@
+import { formatLocaleInteger } from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -26,9 +27,6 @@ export default async function GradeMissionPage({
 
   const draftCount = existingAssessments.filter((a) => a.state === "draft").length;
 
-  const formattedMaxLumens =
-    locale === "fa" ? mission.maxLumens.toLocaleString("fa-IR") : mission.maxLumens.toString();
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -43,7 +41,7 @@ export default async function GradeMissionPage({
             {locale === "fa" ? mission.titleFa : mission.title}
           </h1>
           <p className="text-sm text-muted-foreground">
-            {t("maxLumens", { count: formattedMaxLumens })}
+            {t("maxLumens", { count: formatLocaleInteger(mission.maxLumens, locale) })}
           </p>
         </div>
       </div>

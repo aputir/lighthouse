@@ -1,4 +1,16 @@
 "use client";
+
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  FieldMessage,
+  Input,
+  Label,
+  Spinner,
+} from "@lighthouse/ui";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -27,39 +39,26 @@ export function LoginForm({ locale }: { locale: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium">
-          {t("email")}
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className="mt-1 block w-full rounded border px-3 py-2"
-        />
-      </div>
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium">
-          {t("password")}
-        </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          className="mt-1 block w-full rounded border px-3 py-2"
-        />
-      </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded bg-primary px-4 py-2 text-white disabled:opacity-50"
-      >
-        {loading ? t("loading") : t("signIn")}
-      </button>
-    </form>
+    <Card className="mx-auto w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>{t("signIn")}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">{t("email")}</Label>
+            <Input id="email" name="email" type="email" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">{t("password")}</Label>
+            <Input id="password" name="password" type="password" required />
+          </div>
+          {error && <FieldMessage variant="error">{error}</FieldMessage>}
+          <Button type="submit" disabled={loading} className="w-full">
+            {loading ? <Spinner className="size-4" /> : t("signIn")}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 }

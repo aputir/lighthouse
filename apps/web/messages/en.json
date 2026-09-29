@@ -1,4 +1,14 @@
 {
+  "common": {
+    "signOut": "Sign out",
+    "language": "Language",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "shell": {
+    "openMenu": "Open menu",
+    "navigation": "Navigation"
+  },
   "app": {
     "name": "The Lighthouse",
     "tagline": "Advanced Programming Course — University of Tehran"
@@ -26,6 +36,7 @@
     },
     "overview": "Overview",
     "students": "Students",
+    "noActiveCourse": "No active course. Create one first.",
     "roster": {
       "title": "Roster",
       "invite": "New Invite",
@@ -96,7 +107,10 @@
       "publishing": "Publishing...",
       "noStudents": "No enrolled students in this course.",
       "noMissions": "No missions yet in this chapter.",
-      "backToGrades": "Back to Grades"
+      "backToGrades": "Back to Grades",
+      "publishConfirmTitle": "Publish grades?",
+      "publishConfirmDescription": "Publishing will compute Lumens, update landmark stages, and create Ship's Log entries. This cannot be undone.",
+      "publishConfirmButton": "Publish grades"
     },
     "world": {
       "title": "Harbor World State",
@@ -121,9 +135,13 @@
       "harbor": "Harbor"
     },
     "dashboard": {
+      "title": "Dashboard",
       "noCourse": "No active course.",
       "nextMission": "Next mission",
-      "lumens": "Lumens"
+      "lumens": "Lumens",
+      "rank": "Keeper Rank",
+      "maxRank": "Maximum rank achieved",
+      "noMission": "No active mission at this time."
     },
     "missions": {
       "title": "Missions",
@@ -142,7 +160,8 @@
       "title": "Crew",
       "noCourse": "No active course.",
       "noCrew": "You are not in a crew yet.",
-      "ship": "Ship: "
+      "ship": "Ship: ",
+      "members": "Members"
     },
     "ranks": {
       "apprenticeKeeper": "Apprentice Keeper",
@@ -158,6 +177,9 @@
     "subtitle": "Advanced Programming — University of Tehran",
     "shipLog": "Ship's Log",
     "noLogs": "No logs recorded yet.",
+    "noLogsDescription": "No events recorded in the ship's log yet.",
+    "map": "Harbor Map",
+    "worldHarbor": "Lighthouse World · Harbor",
     "lumens": "Lumens",
     "lumenShort": "L",
     "stages": {
