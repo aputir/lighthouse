@@ -16,6 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  formatLocaleInteger,
 } from "@lighthouse/ui";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
@@ -51,8 +52,6 @@ export function GradeGrid({
   const [error, setError] = useState<string | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const isFa = locale === "fa";
-
   async function handlePublish() {
     setPublishing(true);
     setError(null);
@@ -84,8 +83,6 @@ export function GradeGrid({
       }
     }
   };
-
-  const formattedDraftCount = isFa ? draftCount.toLocaleString("fa-IR") : draftCount.toString();
 
   return (
     <div className="space-y-4">
@@ -189,7 +186,7 @@ export function GradeGrid({
               {publishing ? (
                 <Spinner className="size-4" />
               ) : (
-                t("publishButton", { count: formattedDraftCount })
+                t("publishButton", { count: formatLocaleInteger(draftCount, locale) })
               )}
             </Button>
           </ConfirmDialog>

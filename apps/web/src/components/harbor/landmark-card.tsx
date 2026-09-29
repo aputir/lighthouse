@@ -29,25 +29,24 @@ export const STAGE_STYLES: Record<
   }
 > = {
   dormant: {
-    card: "border-slate-800/80 bg-slate-950/60 text-slate-400 hover:border-slate-700/80 shadow-sm",
+    card: "border-muted bg-muted/40 text-muted-foreground",
     icon: "grayscale opacity-30 scale-95",
-    badge: "bg-slate-900/90 text-slate-400 border border-slate-800",
+    badge: "border-muted bg-muted/40 text-muted-foreground",
   },
   under_restoration: {
-    card: "border-amber-500/40 bg-gradient-to-b from-amber-950/20 to-slate-950/80 text-amber-200 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)] hover:border-amber-400/60",
-    icon: "opacity-85 drop-shadow-[0_0_10px_rgba(245,158,11,0.45)]",
-    badge: "bg-amber-950/70 text-amber-300 border border-amber-500/40",
+    card: "border-status-warning/60 bg-status-warning/15 text-status-warning-foreground",
+    icon: "opacity-85",
+    badge: "border-status-warning/60 bg-status-warning/15 text-status-warning-foreground",
   },
   operational: {
-    card: "border-cyan-500/50 bg-gradient-to-b from-cyan-950/25 to-slate-950/80 text-cyan-200 shadow-[0_0_25px_-5px_rgba(6,182,212,0.25)] hover:border-cyan-400/70",
-    icon: "opacity-100 drop-shadow-[0_0_14px_rgba(6,182,212,0.55)]",
-    badge: "bg-cyan-950/70 text-cyan-300 border border-cyan-500/40",
+    card: "border-primary/60 bg-primary/15 text-primary-foreground",
+    icon: "opacity-100",
+    badge: "border-primary/60 bg-primary/15 text-primary-foreground",
   },
   flourishing: {
-    card: "border-emerald-400/60 bg-gradient-to-b from-emerald-950/30 via-slate-950/80 to-slate-950/90 text-emerald-200 shadow-[0_0_30px_-5px_rgba(16,185,129,0.35)] harbor-pulse hover:border-emerald-300",
-    icon: "opacity-100 scale-110 drop-shadow-[0_0_20px_rgba(16,185,129,0.75)]",
-    badge:
-      "bg-emerald-950/80 text-emerald-300 border border-emerald-400/60 shadow-[0_0_10px_rgba(16,185,129,0.35)]",
+    card: "border-status-success/60 bg-status-success/15 text-status-success-foreground",
+    icon: "opacity-100 scale-110",
+    badge: "border-status-success/60 bg-status-success/15 text-status-success-foreground",
   },
 };
 

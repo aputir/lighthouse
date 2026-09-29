@@ -8,7 +8,7 @@ export default function HarborLoading() {
           <Skeleton className="h-6 w-28 rounded-full bg-slate-800" />
         </div>
         <Skeleton className="mx-auto h-9 w-64 bg-slate-800" />
-        <Skeleton className="mx-auto h-4 w-96 bg-slate-800" />
+        <Skeleton className="mx-auto h-4 w-96 max-w-full bg-slate-800" />
       </header>
       <div className="relative z-10 mx-auto max-w-5xl space-y-8">
         <div className="flex justify-center">

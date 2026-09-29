@@ -1,3 +1,4 @@
+import { formatLocaleInteger } from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -40,7 +41,7 @@ export default async function GradeMissionPage({
             {locale === "fa" ? mission.titleFa : mission.title}
           </h1>
           <p className="text-sm text-muted-foreground">
-            {t("maxLumens", { count: mission.maxLumens })}
+            {t("maxLumens", { count: formatLocaleInteger(mission.maxLumens, locale) })}
           </p>
         </div>
       </div>

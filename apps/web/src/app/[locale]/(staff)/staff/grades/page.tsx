@@ -6,6 +6,7 @@ import {
   CardTitle,
   DataValue,
   EmptyState,
+  formatLocaleInteger,
 } from "@lighthouse/ui";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -69,7 +70,9 @@ export default async function GradesListPage({
                               (<DataValue value={m.maxLumens} locale={locale} /> {t("lumens")})
                             </span>
                             {drafts > 0 && (
-                              <Badge variant="secondary">{t("drafts", { count: drafts })}</Badge>
+                              <Badge variant="secondary">
+                                {t("drafts", { count: formatLocaleInteger(drafts, locale) })}
+                              </Badge>
                             )}
                           </Link>
                         </li>
