@@ -1,6 +1,7 @@
 "use client";
 
 import type { ShipLog } from "@lighthouse/db";
+import { Card } from "@lighthouse/ui";
 import { useTranslations } from "next-intl";
 
 export function ShipLogFeed({
@@ -31,19 +32,19 @@ export function ShipLogFeed({
   return (
     <section className="mx-auto mt-12 max-w-2xl relative z-10">
       <h2 className="mb-4 text-lg font-semibold text-slate-200">{title ?? t("shipLog")}</h2>
-      <ul className="space-y-3">
+      <div className="space-y-3">
         {logs.map((log) => (
-          <li
+          <Card
             key={log.id}
-            className="rounded-xl border border-slate-800/80 bg-slate-950/70 p-4 text-sm shadow-md backdrop-blur-sm transition-colors hover:border-slate-700/80"
+            className="border-slate-800/80 bg-slate-950/70 p-4 text-sm shadow-md backdrop-blur-sm transition-colors hover:border-slate-700/80"
           >
             <p className="font-medium text-slate-200">{isFa ? log.bodyFa : log.bodyEn}</p>
             <p className="mt-1 text-xs text-slate-400">
               {new Date(log.triggeredAt).toLocaleDateString(isFa ? "fa-IR" : "en-US")}
             </p>
-          </li>
+          </Card>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

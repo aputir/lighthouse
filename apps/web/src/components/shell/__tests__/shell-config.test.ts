@@ -8,7 +8,11 @@ describe("Staff Shell Config", () => {
     const items = getStaffNavItems("fa", mockT);
 
     expect(items).toHaveLength(7);
-    expect(items[0]).toEqual({ href: "/fa/staff", label: "translated:staff.nav.overview" });
+    expect(items[0]).toEqual({
+      href: "/fa/staff",
+      label: "translated:staff.nav.overview",
+      exact: true,
+    });
     expect(items[1]).toEqual({ href: "/fa/staff/roster", label: "translated:staff.nav.roster" });
     expect(items[2]).toEqual({
       href: "/fa/staff/missions",

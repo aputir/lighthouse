@@ -11,6 +11,7 @@ export type NavSubsection = {
   label: ReactNode;
   key?: string | undefined;
   badge?: ReactNode;
+  exact?: boolean | undefined;
 };
 
 export type NavItemConfig = {
@@ -22,6 +23,7 @@ export type NavItemConfig = {
   subsections?: readonly NavSubsection[] | undefined;
   isAction?: boolean | undefined;
   onClick?: (() => void) | undefined;
+  exact?: boolean | undefined;
 };
 
 export type NavTreeLinkProps = {
@@ -40,12 +42,15 @@ export interface NavTreeProps {
   className?: string | undefined;
 }
 
-function isRouteActive(currentPath: string | undefined, href: string): boolean {
+function isRouteActive(currentPath: string | undefined, href: string, exact?: boolean): boolean {
   if (!currentPath) {
     return false;
   }
   if (currentPath === href) {
     return true;
+  }
+  if (exact) {
+    return false;
   }
   if (href === "" || href === "/") {
     return false;
@@ -62,10 +67,10 @@ function isSectionActive(item: NavItemConfig, currentPath?: string): boolean {
   if (!currentPath) {
     return false;
   }
-  if (isRouteActive(currentPath, item.href)) {
+  if (isRouteActive(currentPath, item.href, item.exact)) {
     return true;
   }
-  return Boolean(item.subsections?.some((sub) => isRouteActive(currentPath, sub.href)));
+  return Boolean(item.subsections?.some((sub) => isRouteActive(currentPath, sub.href, sub.exact)));
 }
 
 function renderBadge(badge: ReactNode) {
@@ -177,7 +182,7 @@ function NavSectionItem({
       <Collapse open={isOpen}>
         <ul className="space-y-0.5 pb-1">
           {item.subsections?.map((subsection, index) => {
-            const isSubActive = isRouteActive(currentPath, subsection.href);
+            const isSubActive = isRouteActive(currentPath, subsection.href, subsection.exact);
             const subKey = subsection.key ?? subsection.href ?? String(index);
 
             return (
@@ -217,7 +222,7 @@ function NavLinkItem({
   onNavigate?: (() => void) | undefined;
   Link: ComponentType<NavTreeLinkProps>;
 }) {
-  const isActive = isRouteActive(currentPath, item.href);
+  const isActive = isRouteActive(currentPath, item.href, item.exact);
   const Icon = item.icon;
 
   return (
