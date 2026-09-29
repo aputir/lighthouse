@@ -3,22 +3,10 @@ import { compare } from "bcryptjs";
 import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-
-const authSecret = (() => {
-  const secret = process.env.AUTH_SECRET;
-  if (!secret) {
-    if (
-      process.env.NODE_ENV === "production" &&
-      process.env.NEXT_PHASE !== "phase-production-build"
-    ) {
-      throw new Error("Missing required environment variable: AUTH_SECRET in production");
-    }
-    return "lighthouse-auth-secret-for-development-mode-min32chars";
-  }
-  return secret;
-})();
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       credentials: {
@@ -30,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const [user] = await db
           .select()
           .from(users)
-          .where(eq(users.email, credentials.email as string))
+          .where(eq(users.email, (credentials.email as string).toLowerCase().trim()))
           .limit(1);
         if (!user) return null;
         const valid = await compare(credentials.password as string, user.passwordHash);
@@ -44,22 +32,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.role = (user as { role: string }).role;
-      }
-      return token;
-    },
-    session({ session, token }) {
-      session.user.id = token.id as string;
-      session.user.role = token.role as "owner" | "staff" | "student";
-      return session;
-    },
-  },
-  pages: {
-    signIn: "/login", // next-intl middleware adds locale prefix
-  },
-  secret: authSecret,
 });

@@ -1,5 +1,5 @@
 import { hashSync } from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "./client";
 import { chapters, courses, missions } from "./schema/courses";
 import { users } from "./schema/users";
@@ -110,8 +110,7 @@ async function seed() {
     let [chapter] = await db
       .select()
       .from(chapters)
-      .where(eq(chapters.courseId, course.id))
-      .where(eq(chapters.order, lm.order))
+      .where(and(eq(chapters.courseId, course.id), eq(chapters.order, lm.order)))
       .limit(1);
 
     if (!chapter) {
