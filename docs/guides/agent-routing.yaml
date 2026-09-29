@@ -1,0 +1,160 @@
+# Lighthouse Agent Routing
+# Resolution order: path_globs first (first match wins, most-specific first), then match keywords.
+# Load only listed docs/read_with — respect context budget from AGENTS.md.
+
+routes:
+  - id: db-schema
+    description: Database schema, migrations, and Drizzle ORM
+    path_globs:
+      - "packages/db/**"
+    match:
+      - schema
+      - migration
+      - drizzle
+      - database
+      - neon
+      - assessment
+      - lumen
+      - landmark
+      - world state
+    docs:
+      - docs/decisions/ADR-003-database-and-orm.md
+    read_with:
+      - packages/db/src/schema.ts
+      - packages/db/src/schema/assessments.ts
+      - packages/db/src/schema/world.ts
+
+  - id: staff-grades
+    description: TA grade entry, score publishing, world preview
+    path_globs:
+      - "apps/web/src/app/(staff)/grades/**"
+      - "apps/web/src/app/(staff)/world/**"
+    match:
+      - grade
+      - score
+      - publish
+      - draft
+      - lumen
+      - assessment
+      - world preview
+      - ship log
+    docs:
+      - docs/superpowers/specs/2026-09-29-lighthouse-harbor-world-design.md
+    read_with:
+      - packages/db/src/schema/assessments.ts
+      - packages/db/src/schema/world.ts
+      - apps/web/src/lib/progression.ts
+
+  - id: staff-management
+    description: TA course, chapter, mission, roster, crew management
+    path_globs:
+      - "apps/web/src/app/(staff)/**"
+    match:
+      - roster
+      - enrollment
+      - chapter
+      - mission
+      - crew
+      - invite
+      - course management
+    docs:
+      - docs/decisions/ADR-002-auth-and-roles.md
+    read_with:
+      - packages/db/src/schema/courses.ts
+      - packages/db/src/schema/users.ts
+
+  - id: student-views
+    description: Student dashboard, missions, crew, harbor
+    path_globs:
+      - "apps/web/src/app/(student)/**"
+    match:
+      - student dashboard
+      - keeper
+      - rank
+      - crew
+      - missions list
+      - personal progress
+    read_with:
+      - packages/db/src/schema.ts
+
+  - id: public-harbor
+    description: Public harbor map, world visualization, login
+    path_globs:
+      - "apps/web/src/app/(public)/**"
+      - "apps/web/src/components/harbor/**"
+    match:
+      - harbor map
+      - landmark
+      - public
+      - visualization
+      - svg
+      - animation
+    docs:
+      - docs/superpowers/specs/2026-09-29-lighthouse-harbor-world-design.md
+
+  - id: auth
+    description: Authentication, invite system, session, roles
+    path_globs:
+      - "apps/web/src/app/api/auth/**"
+      - "apps/web/src/lib/auth/**"
+      - "apps/web/src/middleware.ts"
+    match:
+      - auth
+      - login
+      - session
+      - invite
+      - password
+      - role
+      - staff
+      - credentials
+    docs:
+      - docs/decisions/ADR-002-auth-and-roles.md
+    read_with:
+      - packages/db/src/schema/users.ts
+
+  - id: i18n
+    description: Internationalization, Persian/English translations
+    path_globs:
+      - "apps/web/messages/**"
+      - "apps/web/src/i18n/**"
+    match:
+      - persian
+      - i18n
+      - translation
+      - locale
+      - rtl
+      - fa
+      - bilingual
+    read_with:
+      - apps/web/messages/fa.json
+      - apps/web/messages/en.json
+
+  - id: architecture
+    description: ADRs and strategic architecture decisions
+    path_globs:
+      - "docs/decisions/**"
+    match:
+      - ADR
+      - architecture
+      - decision
+      - monorepo
+      - deployment
+      - turborepo
+    docs:
+      - docs/decisions/ADR-001-monorepo-structure.md
+      - docs/decisions/ADR-002-auth-and-roles.md
+      - docs/decisions/ADR-003-database-and-orm.md
+
+  - id: judge-stub
+    description: Phase 2 code judge — STUB ONLY
+    path_globs:
+      - "apps/judge/**"
+    match:
+      - judge
+      - arena
+      - regatta
+      - submission
+      - code execution
+    docs:
+      - docs/superpowers/specs/2026-09-29-lighthouse-harbor-world-design.md
+    note: "Phase 2 stub. Do not implement. Acknowledge scope boundary."
