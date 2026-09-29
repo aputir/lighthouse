@@ -29,13 +29,16 @@ export function ShipLogFeed({
   const isFa = locale === "fa";
 
   return (
-    <section className="mx-auto mt-10 max-w-2xl">
-      <h2 className="mb-4 text-lg font-semibold">{title ?? t("shipLog")}</h2>
+    <section className="mx-auto mt-12 max-w-2xl relative z-10">
+      <h2 className="mb-4 text-lg font-semibold text-slate-200">{title ?? t("shipLog")}</h2>
       <ul className="space-y-3">
         {logs.map((log) => (
-          <li key={log.id} className="rounded-lg border bg-card p-3 text-sm shadow-sm">
-            <p className="font-medium">{isFa ? log.bodyFa : log.bodyEn}</p>
-            <p className="mt-1 text-xs text-muted-foreground">
+          <li
+            key={log.id}
+            className="rounded-xl border border-slate-800/80 bg-slate-950/70 p-4 text-sm shadow-md backdrop-blur-sm transition-colors hover:border-slate-700/80"
+          >
+            <p className="font-medium text-slate-200">{isFa ? log.bodyFa : log.bodyEn}</p>
+            <p className="mt-1 text-xs text-slate-400">
               {new Date(log.triggeredAt).toLocaleDateString(isFa ? "fa-IR" : "en-US")}
             </p>
           </li>
