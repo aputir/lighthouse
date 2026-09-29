@@ -1,3 +1,4 @@
-// Schema barrel — will be populated in Task 2
-// Placeholder to allow Task 1 to typecheck
-export {};
+export * from "./schema/users";
+export * from "./schema/courses";
+export * from "./schema/assessments";
+export * from "./schema/world";

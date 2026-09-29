@@ -1,8 +1,12 @@
 {
   "name": "lighthouse",
-  "private": true,
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  },
   "packageManager": "bun@1.3.14",
-  "workspaces": ["apps/*", "packages/*"],
+  "private": true,
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
@@ -10,9 +14,5 @@
     "lint": "turbo lint",
     "test": "turbo test"
   },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "turbo": "^2.3.3",
-    "typescript": "^5.7.2"
-  }
+  "workspaces": ["apps/*", "packages/*"]
 }
