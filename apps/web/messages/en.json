@@ -135,9 +135,13 @@
       "harbor": "Harbor"
     },
     "dashboard": {
+      "title": "Dashboard",
       "noCourse": "No active course.",
       "nextMission": "Next mission",
-      "lumens": "Lumens"
+      "lumens": "Lumens",
+      "rank": "Keeper Rank",
+      "maxRank": "Maximum rank achieved",
+      "noMission": "No active mission at this time."
     },
     "missions": {
       "title": "Missions",
@@ -156,7 +160,8 @@
       "title": "Crew",
       "noCourse": "No active course.",
       "noCrew": "You are not in a crew yet.",
-      "ship": "Ship: "
+      "ship": "Ship: ",
+      "members": "Members"
     },
     "ranks": {
       "apprenticeKeeper": "Apprentice Keeper",
