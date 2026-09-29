@@ -112,5 +112,44 @@
       "noActiveCourse": "دوره فعالی وجود ندارد.",
       "noEvents": "هنوز رویدادی ثبت نشده است."
     }
+  },
+  "student": {
+    "nav": {
+      "dashboard": "داشبورد",
+      "missions": "مأموریت‌ها",
+      "crew": "خدمه",
+      "harbor": "بندر"
+    },
+    "dashboard": {
+      "noCourse": "هیچ دوره فعالی وجود ندارد.",
+      "nextMission": "مأموریت بعدی",
+      "lumens": "لومن"
+    },
+    "missions": {
+      "title": "مأموریت‌ها",
+      "noCourse": "هیچ دوره فعالی وجود ندارد.",
+      "noMissions": "هنوز هیچ مأموریتی در این دوره وجود ندارد.",
+      "lumens": "لومن",
+      "lumenShort": "لومن",
+      "states": {
+        "awaiting": "در انتظار ارزیابی",
+        "underReview": "در حال بررسی",
+        "assessed": "ارزیابی شده",
+        "revised": "اصلاح شده"
+      }
+    },
+    "crew": {
+      "title": "خدمه",
+      "noCourse": "هیچ دوره فعالی وجود ندارد.",
+      "noCrew": "شما عضو خدمه‌ای نیستید.",
+      "ship": "کشتی: "
+    },
+    "ranks": {
+      "apprenticeKeeper": "کارآموز نگهبان",
+      "beaconKeeper": "نگهبان فانوس",
+      "signalKeeper": "نگهبان سیگنال",
+      "driftNavigator": "ناوبر جریان",
+      "harborSteward": "مدیر بندر"
+    }
   }
 }

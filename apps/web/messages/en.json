@@ -112,5 +112,44 @@
       "noActiveCourse": "No active course.",
       "noEvents": "No events yet."
     }
+  },
+  "student": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "missions": "Missions",
+      "crew": "Crew",
+      "harbor": "Harbor"
+    },
+    "dashboard": {
+      "noCourse": "No active course.",
+      "nextMission": "Next mission",
+      "lumens": "Lumens"
+    },
+    "missions": {
+      "title": "Missions",
+      "noCourse": "No active course.",
+      "noMissions": "No missions yet in this course.",
+      "lumens": "Lumens",
+      "lumenShort": "L",
+      "states": {
+        "awaiting": "Awaiting assessment",
+        "underReview": "Under review",
+        "assessed": "Assessed",
+        "revised": "Revised"
+      }
+    },
+    "crew": {
+      "title": "Crew",
+      "noCourse": "No active course.",
+      "noCrew": "You are not in a crew yet.",
+      "ship": "Ship: "
+    },
+    "ranks": {
+      "apprenticeKeeper": "Apprentice Keeper",
+      "beaconKeeper": "Beacon Keeper",
+      "signalKeeper": "Signal Keeper",
+      "driftNavigator": "Drift Navigator",
+      "harborSteward": "Harbor Steward"
+    }
   }
 }
