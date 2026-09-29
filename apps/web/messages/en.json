@@ -13,5 +13,69 @@
     "activateButton": "Activate account",
     "yourName": "Your name",
     "loading": "Processing..."
+  },
+  "staff": {
+    "nav": {
+      "overview": "Overview",
+      "roster": "Roster",
+      "missions": "Missions",
+      "grades": "Grades",
+      "crews": "Crews",
+      "world": "World"
+    },
+    "overview": "Overview",
+    "students": "Students",
+    "roster": {
+      "title": "Roster",
+      "invite": "New Invite",
+      "pendingInvites": "Pending Invites",
+      "enrolled": "Enrolled",
+      "name": "Name",
+      "email": "Email",
+      "studentId": "Student ID",
+      "noStudents": "No enrolled students yet.",
+      "emailPlaceholder": "student@example.com",
+      "createInviteButton": "Create Invite",
+      "creatingInvite": "Generating...",
+      "inviteLinkNotice": "Invite link (share with student):",
+      "copyLink": "Copy Link",
+      "copied": "Copied!"
+    },
+    "missions": {
+      "title": "Chapters & Missions",
+      "noActiveCourse": "No active course. Create one first.",
+      "lumens": "Lumens",
+      "addChapter": "Add Chapter",
+      "addChapterButton": "Add Chapter",
+      "addingChapter": "Adding...",
+      "chapterTitleEnPlaceholder": "Chapter title (EN)",
+      "chapterTitleFaPlaceholder": "Title (FA)",
+      "addMission": "Add Mission",
+      "addMissionButton": "Add Mission",
+      "addingMission": "Adding...",
+      "missionTitleEnPlaceholder": "Mission title (EN)",
+      "missionTitleFaPlaceholder": "Mission title (FA)",
+      "maxLumensPlaceholder": "Max Lumens",
+      "noMissions": "No missions yet in this chapter."
+    },
+    "crews": {
+      "title": "Crew Management",
+      "noActiveCourse": "No active course. Create one first.",
+      "createCrew": "Create Crew",
+      "crewNamePlaceholder": "Crew name",
+      "shipNamePlaceholder": "Ship name (optional)",
+      "createCrewButton": "Create Crew",
+      "creatingCrew": "Creating...",
+      "existingCrews": "Existing Crews",
+      "noCrews": "No crews created yet.",
+      "ship": "Ship",
+      "members": "Members",
+      "noMembers": "No members assigned yet.",
+      "addMember": "Add Member",
+      "selectStudent": "Select an enrolled student...",
+      "addMemberButton": "Assign",
+      "removeMember": "Remove",
+      "allAssigned": "All enrolled students are already assigned."
+    }
   }
 }

@@ -13,5 +13,69 @@
     "activateButton": "فعال‌سازی حساب",
     "yourName": "نام شما",
     "loading": "در حال پردازش..."
+  },
+  "staff": {
+    "nav": {
+      "overview": "نمای کلی",
+      "roster": "فهرست دانشجویان",
+      "missions": "مأموریت‌ها",
+      "grades": "نمرات",
+      "crews": "خدمه‌ها",
+      "world": "جهان"
+    },
+    "overview": "نمای کلی",
+    "students": "دانشجویان",
+    "roster": {
+      "title": "فهرست دانشجویان",
+      "invite": "دعوت‌نامه جدید",
+      "pendingInvites": "دعوت‌نامه‌های در انتظار",
+      "enrolled": "ثبت‌نام‌شدگان",
+      "name": "نام",
+      "email": "ایمیل",
+      "studentId": "شماره دانشجویی",
+      "noStudents": "هنوز دانشجویی ثبت‌نام نکرده است.",
+      "emailPlaceholder": "student@example.com",
+      "createInviteButton": "ایجاد دعوت‌نامه",
+      "creatingInvite": "در حال ایجاد...",
+      "inviteLinkNotice": "لینک دعوت‌نامه (برای دانشجو ارسال کنید):",
+      "copyLink": "کپی لینک",
+      "copied": "کپی شد!"
+    },
+    "missions": {
+      "title": "فصل‌ها و مأموریت‌ها",
+      "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
+      "lumens": "لومن",
+      "addChapter": "افزودن فصل",
+      "addChapterButton": "افزودن فصل",
+      "addingChapter": "در حال افزودن...",
+      "chapterTitleEnPlaceholder": "عنوان فصل (انگلیسی)",
+      "chapterTitleFaPlaceholder": "عنوان فصل (فارسی)",
+      "addMission": "افزودن مأموریت",
+      "addMissionButton": "افزودن مأموریت",
+      "addingMission": "در حال افزودن...",
+      "missionTitleEnPlaceholder": "عنوان مأموریت (انگلیسی)",
+      "missionTitleFaPlaceholder": "عنوان مأموریت (فارسی)",
+      "maxLumensPlaceholder": "حداکثر لومن",
+      "noMissions": "هنوز مأموریتی در این فصل تعریف نشده است."
+    },
+    "crews": {
+      "title": "مدیریت خدمه‌ها",
+      "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
+      "createCrew": "ایجاد خدمه",
+      "crewNamePlaceholder": "نام خدمه",
+      "shipNamePlaceholder": "نام کشتی (اختیاری)",
+      "createCrewButton": "ایجاد خدمه",
+      "creatingCrew": "در حال ایجاد...",
+      "existingCrews": "خدمه‌های موجود",
+      "noCrews": "هنوز خدمه‌ای ایجاد نشده است.",
+      "ship": "کشتی",
+      "members": "اعضا",
+      "noMembers": "هنوز عضوی تعیین نشده است.",
+      "addMember": "افزودن عضو",
+      "selectStudent": "انتخاب دانشجوی ثبت‌نام‌شده...",
+      "addMemberButton": "تخصیص",
+      "removeMember": "حذف",
+      "allAssigned": "همه دانشجویان ثبت‌نام‌شده تعیین شده‌اند."
+    }
   }
 }
