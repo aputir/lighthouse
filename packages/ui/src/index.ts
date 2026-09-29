@@ -107,7 +107,7 @@ export {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./dropdown-menu.js";
+} from "./dropdown-menu";
 
 // ── Composed ──
 export {
@@ -125,12 +125,12 @@ export {
 export {
   FieldDescription,
   FieldGroup,
-} from "./composed/field-feedback.js";
+} from "./composed/field-feedback";
 
 export {
   HoldToConfirmButton,
   type HoldToConfirmButtonProps,
-} from "./composed/hold-to-confirm-button.js";
+} from "./composed/hold-to-confirm-button";
 
 // ── Shell ──
 export {
@@ -138,21 +138,22 @@ export {
   type ShellHeaderProps,
   type ShellHeaderVariant,
   useShellMenuState,
-} from "./composed/shell/shell-header.js";
+} from "./composed/shell/shell-header";
 export {
   NavRail,
   type NavRailProps,
-} from "./composed/shell/nav-rail.js";
+} from "./composed/shell/nav-rail";
 export {
   NavTree,
   type NavTreeProps,
   type NavItemConfig,
   type NavSubsection,
-} from "./composed/shell/nav-tree.js";
+  type NavTreeLinkProps,
+} from "./composed/shell/nav-tree";
 export {
   NavMobileSheet,
   type NavMobileSheetProps,
-} from "./composed/shell/nav-mobile-sheet.js";
+} from "./composed/shell/nav-mobile-sheet";
 
 // ── Utilities ──
 export {
@@ -161,11 +162,11 @@ export {
   toast,
   toLocaleDigits,
 } from "@manovaspace/ui";
-export { persianizeDigits } from "./lib/numeric.js";
-export { formatLocaleInteger } from "./lib/locale-format.js";
+export { persianizeDigits } from "./lib/numeric";
+export { formatLocaleInteger } from "./lib/locale-format";
 
 // ── Theme ──
 export { ThemeProvider, ThemeSwitcher, useTheme } from "@manovaspace/ui";
 
 // ── Domain components (Lighthouse-specific) ──
-export { LandmarkStageBadge } from "./domain/landmark-stage-badge.js";
+export { LandmarkStageBadge } from "./domain/landmark-stage-badge";

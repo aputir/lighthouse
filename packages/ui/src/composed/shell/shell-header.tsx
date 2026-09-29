@@ -3,7 +3,7 @@
 import { Button, cn, iconProps } from "@manovaspace/ui";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { Bars3Icon } from "../../icons.js";
+import { Bars3Icon } from "../../icons";
 
 export type ShellHeaderVariant = "primary" | "default" | "brand";
 

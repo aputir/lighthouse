@@ -1,5 +1,8 @@
-import { StaffNav } from "@/components/staff/staff-nav";
+import { AppShell } from "@/components/shell/app-shell";
+import { getStaffNavItems } from "@/components/shell/staff-shell-config";
+import { UserMenu } from "@/components/shell/user-menu";
 import { requireRole } from "@/lib/auth-helpers";
+import { getTranslations } from "next-intl/server";
 
 export default async function StaffLayout({
   children,
@@ -9,12 +12,20 @@ export default async function StaffLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  await requireRole("staff", locale);
+  const user = await requireRole("staff", locale);
+  const t = await getTranslations();
+  const navItems = getStaffNavItems(locale, t);
 
   return (
-    <div className="flex min-h-screen">
-      <StaffNav locale={locale} />
-      <main className="flex-1 p-6">{children}</main>
-    </div>
+    <AppShell
+      title={t("app.name")}
+      label={t("app.tagline")}
+      navItems={navItems}
+      openMenuLabel={t("shell.openMenu")}
+      navigationLabel={t("shell.navigation")}
+      userMenu={<UserMenu userName={user.name ?? user.email ?? "?"} />}
+    >
+      {children}
+    </AppShell>
   );
 }

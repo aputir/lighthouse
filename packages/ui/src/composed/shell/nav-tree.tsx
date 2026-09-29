@@ -3,39 +3,41 @@
 import { Badge, type IconProps, cn, iconProps } from "@manovaspace/ui";
 import type { ComponentType, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { ChevronDownIcon } from "../../icons.js";
-import { Collapse, collapseChevronClassName } from "../../motion/collapse.js";
+import { ChevronDownIcon } from "../../icons";
+import { Collapse, collapseChevronClassName } from "../../motion/collapse";
 
 export type NavSubsection = {
   href: string;
   label: ReactNode;
-  key?: string;
+  key?: string | undefined;
   badge?: ReactNode;
 };
 
 export type NavItemConfig = {
   href: string;
   label: ReactNode;
-  icon?: ComponentType<IconProps>;
-  key?: string;
+  icon?: ComponentType<IconProps> | undefined;
+  key?: string | undefined;
   badge?: ReactNode;
-  subsections?: readonly NavSubsection[];
-  isAction?: boolean;
+  subsections?: readonly NavSubsection[] | undefined;
+  isAction?: boolean | undefined;
+  onClick?: (() => void) | undefined;
+};
+
+export type NavTreeLinkProps = {
+  href: string;
+  className?: string;
+  children: ReactNode;
   onClick?: () => void;
+  "aria-current"?: "page";
 };
 
 export interface NavTreeProps {
   items: readonly NavItemConfig[];
-  currentPath?: string;
-  onNavigate?: () => void;
-  asLink?: ComponentType<{
-    href: string;
-    className?: string;
-    children: ReactNode;
-    onClick?: () => void;
-    "aria-current"?: "page" | undefined;
-  }>;
-  className?: string;
+  currentPath?: string | undefined;
+  onNavigate?: (() => void) | undefined;
+  asLink?: ComponentType<NavTreeLinkProps> | undefined;
+  className?: string | undefined;
 }
 
 function isRouteActive(currentPath: string | undefined, href: string): boolean {
@@ -89,15 +91,14 @@ function DefaultLink({
   children,
   onClick,
   "aria-current": ariaCurrent,
-}: {
-  href: string;
-  className?: string;
-  children: ReactNode;
-  onClick?: () => void;
-  "aria-current"?: "page" | undefined;
-}) {
+}: NavTreeLinkProps) {
   return (
-    <a href={href} className={className} onClick={onClick} aria-current={ariaCurrent}>
+    <a
+      href={href}
+      className={className}
+      {...(onClick ? { onClick } : {})}
+      {...(ariaCurrent ? { "aria-current": ariaCurrent } : {})}
+    >
       {children}
     </a>
   );
@@ -126,15 +127,9 @@ function NavSectionItem({
   Link,
 }: {
   item: NavItemConfig;
-  currentPath?: string;
-  onNavigate?: () => void;
-  Link: ComponentType<{
-    href: string;
-    className?: string;
-    children: ReactNode;
-    onClick?: () => void;
-    "aria-current"?: "page" | undefined;
-  }>;
+  currentPath?: string | undefined;
+  onNavigate?: (() => void) | undefined;
+  Link: ComponentType<NavTreeLinkProps>;
 }) {
   const sectionActive = isSectionActive(item, currentPath);
   const [isOpen, setIsOpen] = useState(sectionActive);
@@ -189,9 +184,9 @@ function NavSectionItem({
               <li key={subKey}>
                 <Link
                   href={subsection.href}
-                  onClick={onNavigate}
                   className={navSubsectionClass(isSubActive)}
-                  aria-current={isSubActive ? "page" : undefined}
+                  {...(onNavigate ? { onClick: onNavigate } : {})}
+                  {...(isSubActive ? { "aria-current": "page" as const } : {})}
                 >
                   <span className="flex items-center gap-2">
                     <span className="min-w-0 flex-1 truncate">{subsection.label}</span>
@@ -218,15 +213,9 @@ function NavLinkItem({
   Link,
 }: {
   item: NavItemConfig;
-  currentPath?: string;
-  onNavigate?: () => void;
-  Link: ComponentType<{
-    href: string;
-    className?: string;
-    children: ReactNode;
-    onClick?: () => void;
-    "aria-current"?: "page" | undefined;
-  }>;
+  currentPath?: string | undefined;
+  onNavigate?: (() => void) | undefined;
+  Link: ComponentType<NavTreeLinkProps>;
 }) {
   const isActive = isRouteActive(currentPath, item.href);
   const Icon = item.icon;
@@ -234,9 +223,9 @@ function NavLinkItem({
   return (
     <Link
       href={item.href}
-      onClick={onNavigate}
       className={navItemClass(isActive)}
-      aria-current={isActive ? "page" : undefined}
+      {...(onNavigate ? { onClick: onNavigate } : {})}
+      {...(isActive ? { "aria-current": "page" as const } : {})}
     >
       {Icon ? (
         <Icon
@@ -259,7 +248,7 @@ function NavActionItem({
   onNavigate,
 }: {
   item: NavItemConfig;
-  onNavigate?: () => void;
+  onNavigate?: (() => void) | undefined;
 }) {
   const Icon = item.icon;
 
