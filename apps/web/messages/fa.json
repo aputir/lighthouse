@@ -151,5 +151,18 @@
       "driftNavigator": "ناوبر جریان",
       "harborSteward": "مدیر بندر"
     }
+  },
+  "harbor": {
+    "title": "فانوس دریایی",
+    "subtitle": "دوره برنامه‌نویسی پیشرفته — دانشگاه تهران",
+    "shipLog": "دفتر کشتی",
+    "lumens": "لومن",
+    "lumenShort": "لومن",
+    "stages": {
+      "dormant": "غیرفعال",
+      "under_restoration": "در حال بازسازی",
+      "operational": "عملیاتی",
+      "flourishing": "شکوفا"
+    }
   }
 }

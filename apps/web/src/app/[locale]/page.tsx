@@ -1,11 +1,10 @@
-import { useTranslations } from "next-intl";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  const t = useTranslations("app");
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">{t("name")}</h1>
-      <p className="mt-2 text-muted-foreground">{t("tagline")}</p>
-    </main>
-  );
+export default async function RootPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(`/${locale}/harbor`);
 }

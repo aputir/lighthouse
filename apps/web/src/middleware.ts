@@ -5,10 +5,7 @@ import { NextResponse } from "next/server";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-const protectedPatterns = [
-  /\/[a-z]{2}\/(dashboard|missions|crew|harbor|profile)/,
-  /\/[a-z]{2}\/staff/,
-];
+const protectedPatterns = [/\/[a-z]{2}\/(dashboard|missions|crew|profile)/, /\/[a-z]{2}\/staff/];
 
 export default auth((req) => {
   const isProtected = protectedPatterns.some((p) => p.test(req.nextUrl.pathname));

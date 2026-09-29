@@ -151,5 +151,18 @@
       "driftNavigator": "Drift Navigator",
       "harborSteward": "Harbor Steward"
     }
+  },
+  "harbor": {
+    "title": "The Lighthouse",
+    "subtitle": "Advanced Programming — University of Tehran",
+    "shipLog": "Ship's Log",
+    "lumens": "Lumens",
+    "lumenShort": "L",
+    "stages": {
+      "dormant": "dormant",
+      "under_restoration": "under restoration",
+      "operational": "operational",
+      "flourishing": "flourishing"
+    }
   }
 }
