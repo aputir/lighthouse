@@ -1,8 +1,35 @@
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import { routing } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
+import createIntlMiddleware from "next-intl/middleware";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default createMiddleware(routing);
+const intlMiddleware = createIntlMiddleware(routing);
+
+const protectedPatterns = [
+  /\/[a-z]{2}\/(dashboard|missions|crew|harbor|profile)/,
+  /\/[a-z]{2}\/staff/,
+];
+
+export default async function middleware(req: NextRequest) {
+  const isProtected = protectedPatterns.some((p) => p.test(req.nextUrl.pathname));
+
+  if (isProtected) {
+    const session = await auth();
+    if (!session?.user) {
+      const locale = req.nextUrl.pathname.split("/")[1] ?? "fa";
+      return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+    }
+    // Staff-only routes
+    if (req.nextUrl.pathname.includes("/staff") && session.user.role === "student") {
+      const locale = req.nextUrl.pathname.split("/")[1] ?? "fa";
+      return NextResponse.redirect(new URL(`/${locale}/dashboard`, req.url));
+    }
+  }
+
+  return intlMiddleware(req);
+}
 
 export const config = {
-  matcher: ["/", "/(fa|en)/:path*", "/((?!_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

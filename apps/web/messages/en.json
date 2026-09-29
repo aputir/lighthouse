@@ -2,5 +2,13 @@
   "app": {
     "name": "The Lighthouse",
     "tagline": "Advanced Programming Course — University of Tehran"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "invalidCredentials": "Invalid email or password",
+    "activate": "Activate account",
+    "yourName": "Your name"
   }
 }
