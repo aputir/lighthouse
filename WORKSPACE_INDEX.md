@@ -52,14 +52,16 @@ Keep entries concise, dense, and factual.
 - **See**: apps.web
 
 ## [packages.ui]
-- **Aliases**: ui, components, design-system, manova
+- **Aliases**: ui, components, design-system, shadcn, manova, orbit
 - **Path**: `packages/ui/`
-- **Short**: Manova/Goldstein design system integration and Lighthouse domain components.
+- **Package**: `@lighthouse/ui`
+- **Short**: Thin re-export wrapper over `@manovaspace/ui` + `@manovaspace/tokens` with Lighthouse domain components.
 - **Card**:
-  Re-exports `@manovaspace/ui` primitives, composed components, shell components, and icons.
-  Design tokens: `@manovaspace/tokens` (Tailwind CSS v4 custom properties).
-  Domain components: LandmarkStageBadge.
-  RTL-compatible (Tailwind logical properties for Persian layout).
+  Re-exports all primitives, composed components (EmptyState, ConfirmDialog, DataValue, Shell),
+  and utilities from `@manovaspace/ui@0.3.0`.
+  Adds domain components: LandmarkStageBadge.
+  Lighthouse-specific theming via globals.css `@theme inline` binding.
+  Stack: @manovaspace/ui, @manovaspace/tokens, React 19, Tailwind CSS v4.
 
 # Domain Model
 
