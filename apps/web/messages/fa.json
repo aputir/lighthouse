@@ -1,0 +1,170 @@
+{
+  "app": {
+    "name": "فانوس دریایی",
+    "tagline": "دوره برنامه‌نویسی پیشرفته — دانشگاه تهران"
+  },
+  "auth": {
+    "signIn": "ورود به سیستم",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "invalidCredentials": "ایمیل یا رمز عبور اشتباه است",
+    "activate": "فعال‌سازی حساب",
+    "activateTitle": "فعال‌سازی حساب کاربری",
+    "activateButton": "فعال‌سازی حساب",
+    "yourName": "نام شما",
+    "loading": "در حال پردازش..."
+  },
+  "staff": {
+    "nav": {
+      "overview": "نمای کلی",
+      "roster": "فهرست دانشجویان",
+      "missions": "مأموریت‌ها",
+      "grades": "نمرات",
+      "crews": "خدمه‌ها",
+      "world": "جهان",
+      "logs": "دفتر کشتی"
+    },
+    "overview": "نمای کلی",
+    "students": "دانشجویان",
+    "roster": {
+      "title": "فهرست دانشجویان",
+      "invite": "دعوت‌نامه جدید",
+      "pendingInvites": "دعوت‌نامه‌های در انتظار",
+      "enrolled": "ثبت‌نام‌شدگان",
+      "name": "نام",
+      "email": "ایمیل",
+      "studentId": "شماره دانشجویی",
+      "noStudents": "هنوز دانشجویی ثبت‌نام نکرده است.",
+      "emailPlaceholder": "student@example.com",
+      "createInviteButton": "ایجاد دعوت‌نامه",
+      "creatingInvite": "در حال ایجاد...",
+      "inviteLinkNotice": "لینک دعوت‌نامه (برای دانشجو ارسال کنید):",
+      "copyLink": "کپی لینک",
+      "copied": "کپی شد!"
+    },
+    "missions": {
+      "title": "فصل‌ها و مأموریت‌ها",
+      "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
+      "lumens": "لومن",
+      "addChapter": "افزودن فصل",
+      "addChapterButton": "افزودن فصل",
+      "addingChapter": "در حال افزودن...",
+      "chapterTitleEnPlaceholder": "عنوان فصل (انگلیسی)",
+      "chapterTitleFaPlaceholder": "عنوان فصل (فارسی)",
+      "addMission": "افزودن مأموریت",
+      "addMissionButton": "افزودن مأموریت",
+      "addingMission": "در حال افزودن...",
+      "missionTitleEnPlaceholder": "عنوان مأموریت (انگلیسی)",
+      "missionTitleFaPlaceholder": "عنوان مأموریت (فارسی)",
+      "maxLumensPlaceholder": "حداکثر لومن",
+      "noMissions": "هنوز مأموریتی در این فصل تعریف نشده است."
+    },
+    "crews": {
+      "title": "مدیریت خدمه‌ها",
+      "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
+      "createCrew": "ایجاد خدمه",
+      "crewNamePlaceholder": "نام خدمه",
+      "shipNamePlaceholder": "نام کشتی (اختیاری)",
+      "createCrewButton": "ایجاد خدمه",
+      "creatingCrew": "در حال ایجاد...",
+      "existingCrews": "خدمه‌های موجود",
+      "noCrews": "هنوز خدمه‌ای ایجاد نشده است.",
+      "ship": "کشتی",
+      "members": "اعضا",
+      "noMembers": "هنوز عضوی تعیین نشده است.",
+      "addMember": "افزودن عضو",
+      "selectStudent": "انتخاب دانشجوی ثبت‌نام‌شده...",
+      "addMemberButton": "تخصیص",
+      "removeMember": "حذف",
+      "allAssigned": "همه دانشجویان ثبت‌نام‌شده تعیین شده‌اند."
+    },
+    "grades": {
+      "title": "نمرات",
+      "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
+      "drafts": "{count} پیش‌نویس",
+      "student": "دانشجو",
+      "studentId": "شماره دانشجویی",
+      "score": "نمره (۰-۱۰۰)",
+      "lumens": "لومن",
+      "state": "وضعیت",
+      "maxLumens": "حداکثر: {count} لومن",
+      "draft": "پیش‌نویس",
+      "published": "منتشر شده",
+      "revised": "بازنگری شده",
+      "notEntered": "ثبت نشده",
+      "publishButton": "انتشار {count} نمره پیش‌نویس",
+      "publishing": "در حال انتشار...",
+      "noStudents": "دانشجویی در این دوره ثبت‌نام نکرده است.",
+      "noMissions": "هنوز مأموریتی در این فصل وجود ندارد.",
+      "backToGrades": "بازگشت به نمرات"
+    },
+    "world": {
+      "title": "وضعیت جهان بندرگاه",
+      "noActiveCourse": "دوره فعالی وجود ندارد.",
+      "lumens": "لومن",
+      "dormant": "غیرفعال",
+      "underRestoration": "در حال بازسازی",
+      "operational": "عملیاتی",
+      "flourishing": "شکوفا"
+    },
+    "logs": {
+      "title": "دفتر کشتی",
+      "noActiveCourse": "دوره فعالی وجود ندارد.",
+      "noEvents": "هنوز رویدادی ثبت نشده است."
+    }
+  },
+  "student": {
+    "nav": {
+      "dashboard": "داشبورد",
+      "missions": "مأموریت‌ها",
+      "crew": "خدمه",
+      "harbor": "بندر"
+    },
+    "dashboard": {
+      "noCourse": "هیچ دوره فعالی وجود ندارد.",
+      "nextMission": "مأموریت بعدی",
+      "lumens": "لومن"
+    },
+    "missions": {
+      "title": "مأموریت‌ها",
+      "noCourse": "هیچ دوره فعالی وجود ندارد.",
+      "noMissions": "هنوز هیچ مأموریتی در این دوره وجود ندارد.",
+      "lumens": "لومن",
+      "lumenShort": "لومن",
+      "states": {
+        "awaiting": "در انتظار ارزیابی",
+        "underReview": "در حال بررسی",
+        "assessed": "ارزیابی شده",
+        "revised": "اصلاح شده"
+      }
+    },
+    "crew": {
+      "title": "خدمه",
+      "noCourse": "هیچ دوره فعالی وجود ندارد.",
+      "noCrew": "شما عضو خدمه‌ای نیستید.",
+      "ship": "کشتی: "
+    },
+    "ranks": {
+      "apprenticeKeeper": "کارآموز نگهبان",
+      "beaconKeeper": "نگهبان فانوس",
+      "signalKeeper": "نگهبان سیگنال",
+      "driftNavigator": "ناوبر جریان",
+      "harborSteward": "مدیر بندر"
+    }
+  },
+  "harbor": {
+    "title": "فانوس دریایی",
+    "tagline": "دوره برنامه‌نویسی پیشرفته — دانشگاه تهران",
+    "subtitle": "دوره برنامه‌نویسی پیشرفته — دانشگاه تهران",
+    "shipLog": "دفتر کشتی",
+    "noLogs": "هنوز گزارشی در دفتر کشتی ثبت نشده است.",
+    "lumens": "لومن",
+    "lumenShort": "لومن",
+    "stages": {
+      "dormant": "غیرفعال",
+      "under_restoration": "در حال بازسازی",
+      "operational": "عملیاتی",
+      "flourishing": "شکوفا"
+    }
+  }
+}

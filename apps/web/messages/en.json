@@ -1,0 +1,170 @@
+{
+  "app": {
+    "name": "The Lighthouse",
+    "tagline": "Advanced Programming Course — University of Tehran"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "invalidCredentials": "Invalid email or password",
+    "activate": "Activate account",
+    "activateTitle": "Activate your account",
+    "activateButton": "Activate account",
+    "yourName": "Your name",
+    "loading": "Processing..."
+  },
+  "staff": {
+    "nav": {
+      "overview": "Overview",
+      "roster": "Roster",
+      "missions": "Missions",
+      "grades": "Grades",
+      "crews": "Crews",
+      "world": "World",
+      "logs": "Ship's Log"
+    },
+    "overview": "Overview",
+    "students": "Students",
+    "roster": {
+      "title": "Roster",
+      "invite": "New Invite",
+      "pendingInvites": "Pending Invites",
+      "enrolled": "Enrolled",
+      "name": "Name",
+      "email": "Email",
+      "studentId": "Student ID",
+      "noStudents": "No enrolled students yet.",
+      "emailPlaceholder": "student@example.com",
+      "createInviteButton": "Create Invite",
+      "creatingInvite": "Generating...",
+      "inviteLinkNotice": "Invite link (share with student):",
+      "copyLink": "Copy Link",
+      "copied": "Copied!"
+    },
+    "missions": {
+      "title": "Chapters & Missions",
+      "noActiveCourse": "No active course. Create one first.",
+      "lumens": "Lumens",
+      "addChapter": "Add Chapter",
+      "addChapterButton": "Add Chapter",
+      "addingChapter": "Adding...",
+      "chapterTitleEnPlaceholder": "Chapter title (EN)",
+      "chapterTitleFaPlaceholder": "Title (FA)",
+      "addMission": "Add Mission",
+      "addMissionButton": "Add Mission",
+      "addingMission": "Adding...",
+      "missionTitleEnPlaceholder": "Mission title (EN)",
+      "missionTitleFaPlaceholder": "Mission title (FA)",
+      "maxLumensPlaceholder": "Max Lumens",
+      "noMissions": "No missions yet in this chapter."
+    },
+    "crews": {
+      "title": "Crew Management",
+      "noActiveCourse": "No active course. Create one first.",
+      "createCrew": "Create Crew",
+      "crewNamePlaceholder": "Crew name",
+      "shipNamePlaceholder": "Ship name (optional)",
+      "createCrewButton": "Create Crew",
+      "creatingCrew": "Creating...",
+      "existingCrews": "Existing Crews",
+      "noCrews": "No crews created yet.",
+      "ship": "Ship",
+      "members": "Members",
+      "noMembers": "No members assigned yet.",
+      "addMember": "Add Member",
+      "selectStudent": "Select an enrolled student...",
+      "addMemberButton": "Assign",
+      "removeMember": "Remove",
+      "allAssigned": "All enrolled students are already assigned."
+    },
+    "grades": {
+      "title": "Grades",
+      "noActiveCourse": "No active course. Create one first.",
+      "drafts": "{count} drafts",
+      "student": "Student",
+      "studentId": "Student ID",
+      "score": "Score (0-100)",
+      "lumens": "Lumens",
+      "state": "State",
+      "maxLumens": "Max: {count} Lumens",
+      "draft": "Draft",
+      "published": "Published",
+      "revised": "Revised",
+      "notEntered": "Not entered",
+      "publishButton": "Publish {count} draft score(s)",
+      "publishing": "Publishing...",
+      "noStudents": "No enrolled students in this course.",
+      "noMissions": "No missions yet in this chapter.",
+      "backToGrades": "Back to Grades"
+    },
+    "world": {
+      "title": "Harbor World State",
+      "noActiveCourse": "No active course.",
+      "lumens": "Lumens",
+      "dormant": "Dormant",
+      "underRestoration": "Under Restoration",
+      "operational": "Operational",
+      "flourishing": "Flourishing"
+    },
+    "logs": {
+      "title": "Ship's Log",
+      "noActiveCourse": "No active course.",
+      "noEvents": "No events yet."
+    }
+  },
+  "student": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "missions": "Missions",
+      "crew": "Crew",
+      "harbor": "Harbor"
+    },
+    "dashboard": {
+      "noCourse": "No active course.",
+      "nextMission": "Next mission",
+      "lumens": "Lumens"
+    },
+    "missions": {
+      "title": "Missions",
+      "noCourse": "No active course.",
+      "noMissions": "No missions yet in this course.",
+      "lumens": "Lumens",
+      "lumenShort": "L",
+      "states": {
+        "awaiting": "Awaiting assessment",
+        "underReview": "Under review",
+        "assessed": "Assessed",
+        "revised": "Revised"
+      }
+    },
+    "crew": {
+      "title": "Crew",
+      "noCourse": "No active course.",
+      "noCrew": "You are not in a crew yet.",
+      "ship": "Ship: "
+    },
+    "ranks": {
+      "apprenticeKeeper": "Apprentice Keeper",
+      "beaconKeeper": "Beacon Keeper",
+      "signalKeeper": "Signal Keeper",
+      "driftNavigator": "Drift Navigator",
+      "harborSteward": "Harbor Steward"
+    }
+  },
+  "harbor": {
+    "title": "The Lighthouse",
+    "tagline": "Advanced Programming — University of Tehran",
+    "subtitle": "Advanced Programming — University of Tehran",
+    "shipLog": "Ship's Log",
+    "noLogs": "No logs recorded yet.",
+    "lumens": "Lumens",
+    "lumenShort": "L",
+    "stages": {
+      "dormant": "dormant",
+      "under_restoration": "under restoration",
+      "operational": "operational",
+      "flourishing": "flourishing"
+    }
+  }
+}

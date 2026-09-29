@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+  --font-estedad: "Estedad Variable", sans-serif;
+}
+
+body {
+  font-family: var(--font-estedad);
+}

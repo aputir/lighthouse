@@ -11,19 +11,23 @@ Keep entries concise, dense, and factual.
 ## [apps.web]
 - **Aliases**: web, frontend, next, nextjs, harbor, website, aput.ir
 - **Path**: `apps/web/`
+- **Package**: `@lighthouse/web`
+- **Port**: `3000` (dev server: `bun run dev`)
 - **Short**: Next.js 15 App Router — Harbor World course platform for students and TAs.
 - **Card**:
   Persian-primary (fa) + English (en) bilingual course website.
   Public routes: harbor map, login, leaderboard.
   Student routes (auth): dashboard, missions, crew, harbor.
   Staff routes (staff role): grades grid, roster, course management, world preview.
-  Stack: Next.js 15, TypeScript, Tailwind CSS v4, shadcn/ui, Auth.js v5, next-intl.
+  Stack: Next.js 15, TypeScript, Tailwind CSS v4, @fontsource-variable/estedad, shadcn/ui, Auth.js v5, next-intl.
+  Commands: `bun run dev` (starts on port 3000), `bun run build`, `bun run typecheck`, `bun run lint`.
   Deploy: Vercel. Domain: aput.ir.
 - **See**: packages.db, packages.ui
 
 ## [apps.judge]
 - **Aliases**: judge, arena, regatta, code-runner, submission
 - **Path**: `apps/judge/`
+- **Package**: `@lighthouse/judge`
 - **Short**: **PHASE 2 STUB — NOT IMPLEMENTED.** Future code execution judge for student submissions.
 - **Card**:
   Reserved for Phase 2: automated code judging, bot arenas (Regatta).
@@ -35,6 +39,7 @@ Keep entries concise, dense, and factual.
 ## [packages.db]
 - **Aliases**: db, database, schema, drizzle, migrations, neon
 - **Path**: `packages/db/`
+- **Package**: `@lighthouse/db`
 - **Short**: Drizzle ORM schema, migrations, and seed data. Targets Neon (serverless Postgres).
 - **Card**:
   Core entities: Course, Chapter, Mission, Assessment, User, Invite, Enrollment,
@@ -42,7 +47,8 @@ Keep entries concise, dense, and factual.
   Assessment states: draft → published → revised.
   LandmarkState: 8 landmarks × 4 stages (dormant/under_restoration/operational/flourishing).
   Lumen computation is triggered server-side on Assessment publish.
-  Scripts: db:push (schema push), db:generate (migration), db:seed.
+  Stack: Drizzle ORM, @neondatabase/serverless, drizzle-kit, TypeScript.
+  Scripts: db:push (schema push), db:generate (migration), db:seed, typecheck.
 - **See**: apps.web
 
 ## [packages.ui]
