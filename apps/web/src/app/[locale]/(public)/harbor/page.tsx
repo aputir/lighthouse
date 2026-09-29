@@ -11,20 +11,26 @@ export default async function PublicHarborPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("harbor");
-  const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
 
-  const states = course
-    ? await db.select().from(landmarkStates).where(eq(landmarkStates.courseId, course.id))
-    : [];
+  let states: (typeof landmarkStates.$inferSelect)[] = [];
+  let logs: (typeof shipLogs.$inferSelect)[] = [];
 
-  const logs = course
-    ? await db
+  try {
+    const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
+
+    if (course) {
+      states = await db.select().from(landmarkStates).where(eq(landmarkStates.courseId, course.id));
+
+      logs = await db
         .select()
         .from(shipLogs)
         .where(eq(shipLogs.courseId, course.id))
         .orderBy(desc(shipLogs.triggeredAt))
-        .limit(5)
-    : [];
+        .limit(5);
+    }
+  } catch (error) {
+    console.error("PublicHarborPage: Database query failed, rendering default world state:", error);
+  }
 
   return (
     <main className="min-h-screen p-6">
