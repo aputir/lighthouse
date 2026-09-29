@@ -1,0 +1,6 @@
+{
+  "name": "@lighthouse/judge",
+  "version": "0.0.0",
+  "private": true,
+  "description": "PHASE 2 STUB — Code execution judge. Do not implement in Phase 1."
+}
