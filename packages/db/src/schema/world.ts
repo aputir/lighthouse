@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import { integer, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 import { courses } from "./courses";
 
 export const landmarkStageEnum = pgEnum("landmark_stage", [
@@ -10,18 +10,24 @@ export const landmarkStageEnum = pgEnum("landmark_stage", [
 ]);
 
 // One row per landmark per course (8 landmarks × 1 active course = 8 rows)
-export const landmarkStates = pgTable("landmark_states", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => createId()),
-  courseId: text("course_id")
-    .notNull()
-    .references(() => courses.id, { onDelete: "cascade" }),
-  landmarkIndex: integer("landmark_index").notNull(), // 0-7
-  stage: landmarkStageEnum("stage").notNull().default("dormant"),
-  totalLumens: integer("total_lumens").notNull().default(0), // class lumens assigned to this landmark
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-});
+export const landmarkStates = pgTable(
+  "landmark_states",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    courseId: text("course_id")
+      .notNull()
+      .references(() => courses.id, { onDelete: "cascade" }),
+    landmarkIndex: integer("landmark_index").notNull(), // 0-7
+    stage: landmarkStageEnum("stage").notNull().default("dormant"),
+    totalLumens: integer("total_lumens").notNull().default(0), // class lumens assigned to this landmark
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("landmark_states_course_landmark_idx").on(table.courseId, table.landmarkIndex),
+  ],
+);
 
 // Configurable thresholds for each landmark per course
 export const landmarkThresholds = pgTable("landmark_thresholds", {

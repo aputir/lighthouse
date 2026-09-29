@@ -21,7 +21,8 @@
       "missions": "Missions",
       "grades": "Grades",
       "crews": "Crews",
-      "world": "World"
+      "world": "World",
+      "logs": "Ship's Log"
     },
     "overview": "Overview",
     "students": "Students",
@@ -76,6 +77,39 @@
       "addMemberButton": "Assign",
       "removeMember": "Remove",
       "allAssigned": "All enrolled students are already assigned."
+    },
+    "grades": {
+      "title": "Grades",
+      "noActiveCourse": "No active course. Create one first.",
+      "drafts": "{count} drafts",
+      "student": "Student",
+      "studentId": "Student ID",
+      "score": "Score (0-100)",
+      "lumens": "Lumens",
+      "state": "State",
+      "maxLumens": "Max: {count} Lumens",
+      "draft": "Draft",
+      "published": "Published",
+      "revised": "Revised",
+      "notEntered": "Not entered",
+      "publishButton": "Publish {count} draft score(s)",
+      "publishing": "Publishing...",
+      "noStudents": "No enrolled students in this course.",
+      "backToGrades": "Back to Grades"
+    },
+    "world": {
+      "title": "Harbor World State",
+      "noActiveCourse": "No active course.",
+      "lumens": "Lumens",
+      "dormant": "Dormant",
+      "underRestoration": "Under Restoration",
+      "operational": "Operational",
+      "flourishing": "Flourishing"
+    },
+    "logs": {
+      "title": "Ship's Log",
+      "noActiveCourse": "No active course.",
+      "noEvents": "No events yet."
     }
   }
 }

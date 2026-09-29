@@ -8,6 +8,7 @@ const navItems = [
   { href: "staff/grades", key: "grades" },
   { href: "staff/crews", key: "crews" },
   { href: "staff/world", key: "world" },
+  { href: "staff/logs", key: "logs" },
 ] as const;
 
 export async function StaffNav({ locale }: { locale: string }) {

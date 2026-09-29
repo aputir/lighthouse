@@ -21,7 +21,8 @@
       "missions": "مأموریت‌ها",
       "grades": "نمرات",
       "crews": "خدمه‌ها",
-      "world": "جهان"
+      "world": "جهان",
+      "logs": "دفتر کشتی"
     },
     "overview": "نمای کلی",
     "students": "دانشجویان",
@@ -76,6 +77,39 @@
       "addMemberButton": "تخصیص",
       "removeMember": "حذف",
       "allAssigned": "همه دانشجویان ثبت‌نام‌شده تعیین شده‌اند."
+    },
+    "grades": {
+      "title": "نمرات",
+      "noActiveCourse": "دوره فعالی وجود ندارد. ابتدا یک دوره ایجاد کنید.",
+      "drafts": "{count} پیش‌نویس",
+      "student": "دانشجو",
+      "studentId": "شماره دانشجویی",
+      "score": "نمره (۰-۱۰۰)",
+      "lumens": "لومن",
+      "state": "وضعیت",
+      "maxLumens": "حداکثر: {count} لومن",
+      "draft": "پیش‌نویس",
+      "published": "منتشر شده",
+      "revised": "بازنگری شده",
+      "notEntered": "ثبت نشده",
+      "publishButton": "انتشار {count} نمره پیش‌نویس",
+      "publishing": "در حال انتشار...",
+      "noStudents": "دانشجویی در این دوره ثبت‌نام نکرده است.",
+      "backToGrades": "بازگشت به نمرات"
+    },
+    "world": {
+      "title": "وضعیت جهان بندرگاه",
+      "noActiveCourse": "دوره فعالی وجود ندارد.",
+      "lumens": "لومن",
+      "dormant": "غیرفعال",
+      "underRestoration": "در حال بازسازی",
+      "operational": "عملیاتی",
+      "flourishing": "شکوفا"
+    },
+    "logs": {
+      "title": "دفتر کشتی",
+      "noActiveCourse": "دوره فعالی وجود ندارد.",
+      "noEvents": "هنوز رویدادی ثبت نشده است."
     }
   }
 }
