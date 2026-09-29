@@ -30,18 +30,24 @@ export const landmarkStates = pgTable(
 );
 
 // Configurable thresholds for each landmark per course
-export const landmarkThresholds = pgTable("landmark_thresholds", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => createId()),
-  courseId: text("course_id")
-    .notNull()
-    .references(() => courses.id, { onDelete: "cascade" }),
-  landmarkIndex: integer("landmark_index").notNull(), // 0-7
-  toUnderRestoration: integer("to_under_restoration").notNull().default(500),
-  toOperational: integer("to_operational").notNull().default(1500),
-  toFlourishing: integer("to_flourishing").notNull().default(3000),
-});
+export const landmarkThresholds = pgTable(
+  "landmark_thresholds",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    courseId: text("course_id")
+      .notNull()
+      .references(() => courses.id, { onDelete: "cascade" }),
+    landmarkIndex: integer("landmark_index").notNull(), // 0-7
+    toUnderRestoration: integer("to_under_restoration").notNull().default(500),
+    toOperational: integer("to_operational").notNull().default(1500),
+    toFlourishing: integer("to_flourishing").notNull().default(3000),
+  },
+  (table) => [
+    uniqueIndex("landmark_thresholds_course_landmark_idx").on(table.courseId, table.landmarkIndex),
+  ],
+);
 
 // Immutable event log — one entry per milestone (landmark stage advance)
 export const shipLogs = pgTable("ship_logs", {

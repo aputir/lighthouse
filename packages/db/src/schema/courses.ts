@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import { boolean, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
 export const courses = pgTable("courses", {
@@ -45,19 +45,23 @@ export const missions = pgTable("missions", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const enrollments = pgTable("enrollments", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => createId()),
-  courseId: text("course_id")
-    .notNull()
-    .references(() => courses.id, { onDelete: "cascade" }),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  enrolledAt: timestamp("enrolled_at", { withTimezone: true }).notNull().defaultNow(),
-  active: boolean("active").notNull().default(true),
-});
+export const enrollments = pgTable(
+  "enrollments",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    courseId: text("course_id")
+      .notNull()
+      .references(() => courses.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    enrolledAt: timestamp("enrolled_at", { withTimezone: true }).notNull().defaultNow(),
+    active: boolean("active").notNull().default(true),
+  },
+  (table) => [uniqueIndex("enrollments_course_user_idx").on(table.courseId, table.userId)],
+);
 
 export const crews = pgTable("crews", {
   id: text("id")
@@ -71,18 +75,22 @@ export const crews = pgTable("crews", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const crewMembers = pgTable("crew_members", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => createId()),
-  crewId: text("crew_id")
-    .notNull()
-    .references(() => crews.id, { onDelete: "cascade" }),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  joinedAt: timestamp("joined_at", { withTimezone: true }).notNull().defaultNow(),
-});
+export const crewMembers = pgTable(
+  "crew_members",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => createId()),
+    crewId: text("crew_id")
+      .notNull()
+      .references(() => crews.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    joinedAt: timestamp("joined_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [uniqueIndex("crew_members_crew_user_idx").on(table.crewId, table.userId)],
+);
 
 export type Course = typeof courses.$inferSelect;
 export type Chapter = typeof chapters.$inferSelect;

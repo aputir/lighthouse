@@ -1,4 +1,17 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, mock } from "bun:test";
+
+let testLocale = "en";
+mock.module("next-intl", () => ({
+  useTranslations: () => (key: string) => {
+    if (key === "shipLog") return testLocale === "fa" ? "دفتر کشتی" : "Ship's Log";
+    if (key === "noLogs")
+      return testLocale === "fa"
+        ? "هنوز گزارشی در دفتر کشتی ثبت نشده است."
+        : "No logs recorded yet.";
+    return key;
+  },
+}));
+
 import { ShipLogFeed } from "@/app/[locale]/(public)/harbor/ship-log-feed";
 import RootPage from "@/app/[locale]/page";
 import type { LandmarkState, ShipLog } from "@lighthouse/db";
@@ -115,6 +128,7 @@ describe("ShipLogFeed", () => {
   });
 
   it("renders log entries with Persian text when locale is fa", () => {
+    testLocale = "fa";
     const sampleLogs: ShipLog[] = [
       {
         id: "log-1",
@@ -141,6 +155,7 @@ describe("ShipLogFeed", () => {
   });
 
   it("renders log entries with English text when locale is en", () => {
+    testLocale = "en";
     const sampleLogs: ShipLog[] = [
       {
         id: "log-1",

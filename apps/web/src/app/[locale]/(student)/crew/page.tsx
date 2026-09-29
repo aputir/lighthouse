@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { getStudentCrew, getStudentProgress } from "@/lib/student-data";
+import { getActiveCourse, getStudentCrew } from "@/lib/student-data";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
@@ -15,10 +15,10 @@ export default async function CrewPage({
   }
 
   const t = await getTranslations("student.crew");
-  const progress = await getStudentProgress(session.user.id);
-  if (!progress) return <p className="text-muted-foreground">{t("noCourse")}</p>;
+  const course = await getActiveCourse();
+  if (!course) return <p className="text-muted-foreground">{t("noCourse")}</p>;
 
-  const crewData = await getStudentCrew(session.user.id, progress.courseId);
+  const crewData = await getStudentCrew(session.user.id, course.id);
 
   if (!crewData) {
     return (

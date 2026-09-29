@@ -28,8 +28,13 @@ export function getKeeperRank(totalLumens: number): KeeperRank {
   return rank;
 }
 
-export async function getStudentProgress(userId: string) {
+export async function getActiveCourse() {
   const [course] = await db.select().from(courses).where(eq(courses.active, true)).limit(1);
+  return course ?? null;
+}
+
+export async function getStudentProgress(userId: string) {
+  const course = await getActiveCourse();
   if (!course) return null;
 
   const [lumensResult] = await db
@@ -61,20 +66,19 @@ export async function getStudentProgress(userId: string) {
 }
 
 export async function getStudentCrew(userId: string, courseId: string) {
-  const [membership] = await db
-    .select({ crewId: crewMembers.crewId })
-    .from(crewMembers)
-    .innerJoin(crews, eq(crewMembers.crewId, crews.id))
+  const [crew] = await db
+    .select({
+      id: crews.id,
+      courseId: crews.courseId,
+      name: crews.name,
+      shipName: crews.shipName,
+      createdAt: crews.createdAt,
+    })
+    .from(crews)
+    .innerJoin(crewMembers, eq(crewMembers.crewId, crews.id))
     .where(and(eq(crewMembers.userId, userId), eq(crews.courseId, courseId)))
     .limit(1);
 
-  if (!membership) return null;
-
-  const [crew] = await db
-    .select()
-    .from(crews)
-    .where(and(eq(crews.id, membership.crewId), eq(crews.courseId, courseId)))
-    .limit(1);
   if (!crew) return null;
 
   const members = await db

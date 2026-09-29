@@ -154,8 +154,10 @@
   },
   "harbor": {
     "title": "The Lighthouse",
+    "tagline": "Advanced Programming — University of Tehran",
     "subtitle": "Advanced Programming — University of Tehran",
     "shipLog": "Ship's Log",
+    "noLogs": "No logs recorded yet.",
     "lumens": "Lumens",
     "lumenShort": "L",
     "stages": {
