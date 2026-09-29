@@ -9,6 +9,9 @@
     "password": "Password",
     "invalidCredentials": "Invalid email or password",
     "activate": "Activate account",
-    "yourName": "Your name"
+    "activateTitle": "Activate your account",
+    "activateButton": "Activate account",
+    "yourName": "Your name",
+    "loading": "Processing..."
   }
 }

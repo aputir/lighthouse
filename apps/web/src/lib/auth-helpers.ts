@@ -19,7 +19,7 @@ export async function requireRole(
   if (!session?.user) redirect(`/${locale}/login`);
 
   const roleOrder = { student: 0, staff: 1, owner: 2 };
-  if (roleOrder[session.user.role as keyof typeof roleOrder] < roleOrder[minimumRole]) {
+  if ((roleOrder[session.user.role as keyof typeof roleOrder] ?? -1) < roleOrder[minimumRole]) {
     redirect(`/${locale}/login`);
   }
 

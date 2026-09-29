@@ -9,6 +9,9 @@
     "password": "رمز عبور",
     "invalidCredentials": "ایمیل یا رمز عبور اشتباه است",
     "activate": "فعال‌سازی حساب",
-    "yourName": "نام شما"
+    "activateTitle": "فعال‌سازی حساب کاربری",
+    "activateButton": "فعال‌سازی حساب",
+    "yourName": "نام شما",
+    "loading": "در حال پردازش..."
   }
 }

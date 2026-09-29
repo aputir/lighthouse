@@ -1,8 +1,22 @@
 import { db, users } from "@lighthouse/db";
-import { compareSync } from "bcryptjs";
+import { compare } from "bcryptjs";
 import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+
+const authSecret = (() => {
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) {
+    if (
+      process.env.NODE_ENV === "production" &&
+      process.env.NEXT_PHASE !== "phase-production-build"
+    ) {
+      throw new Error("Missing required environment variable: AUTH_SECRET in production");
+    }
+    return "lighthouse-auth-secret-for-development-mode-min32chars";
+  }
+  return secret;
+})();
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -19,7 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .where(eq(users.email, credentials.email as string))
           .limit(1);
         if (!user) return null;
-        const valid = compareSync(credentials.password as string, user.passwordHash);
+        const valid = await compare(credentials.password as string, user.passwordHash);
         if (!valid) return null;
         return {
           id: user.id,
@@ -47,5 +61,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login", // next-intl middleware adds locale prefix
   },
-  secret: process.env.AUTH_SECRET ?? "lighthouse-auth-secret-for-development-mode-min32chars",
+  secret: authSecret,
 });

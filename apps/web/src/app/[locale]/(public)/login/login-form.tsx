@@ -1,8 +1,10 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export function LoginForm({ locale }: { locale: string }) {
+  const t = useTranslations("auth");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +19,7 @@ export function LoginForm({ locale }: { locale: string }) {
       redirect: false,
     });
     if (result?.error) {
-      setError("Invalid email or password.");
+      setError(t("invalidCredentials"));
       setLoading(false);
     } else {
       window.location.href = `/${locale}/dashboard`;
@@ -28,7 +30,7 @@ export function LoginForm({ locale }: { locale: string }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="email" className="block text-sm font-medium">
-          Email
+          {t("email")}
         </label>
         <input
           id="email"
@@ -40,7 +42,7 @@ export function LoginForm({ locale }: { locale: string }) {
       </div>
       <div>
         <label htmlFor="password" className="block text-sm font-medium">
-          Password
+          {t("password")}
         </label>
         <input
           id="password"
@@ -56,7 +58,7 @@ export function LoginForm({ locale }: { locale: string }) {
         disabled={loading}
         className="w-full rounded bg-primary px-4 py-2 text-white disabled:opacity-50"
       >
-        {loading ? "..." : "Sign in"}
+        {loading ? t("loading") : t("signIn")}
       </button>
     </form>
   );

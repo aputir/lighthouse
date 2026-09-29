@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { activateAccount } from "./actions";
 
 export function ActivateForm({
@@ -10,6 +11,8 @@ export function ActivateForm({
   email: string;
   locale?: string;
 }) {
+  const t = useTranslations("auth");
+
   return (
     <form action={activateAccount} className="space-y-4">
       <input type="hidden" name="token" value={token} />
@@ -17,7 +20,7 @@ export function ActivateForm({
       {locale && <input type="hidden" name="locale" value={locale} />}
       <div>
         <label htmlFor="name" className="block text-sm font-medium">
-          Your name
+          {t("yourName")}
         </label>
         <input
           id="name"
@@ -29,7 +32,7 @@ export function ActivateForm({
       </div>
       <div>
         <label htmlFor="password" className="block text-sm font-medium">
-          Password
+          {t("password")}
         </label>
         <input
           id="password"
@@ -41,7 +44,7 @@ export function ActivateForm({
         />
       </div>
       <button type="submit" className="w-full rounded bg-primary px-4 py-2 text-white">
-        Activate account
+        {t("activateButton")}
       </button>
     </form>
   );

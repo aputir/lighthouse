@@ -2,7 +2,6 @@ import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import createIntlMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -11,11 +10,11 @@ const protectedPatterns = [
   /\/[a-z]{2}\/staff/,
 ];
 
-export default async function middleware(req: NextRequest) {
+export default auth((req) => {
   const isProtected = protectedPatterns.some((p) => p.test(req.nextUrl.pathname));
 
   if (isProtected) {
-    const session = await auth();
+    const session = req.auth;
     if (!session?.user) {
       const locale = req.nextUrl.pathname.split("/")[1] ?? "fa";
       return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
@@ -28,7 +27,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   return intlMiddleware(req);
-}
+});
 
 export const config = {
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
