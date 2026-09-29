@@ -169,6 +169,9 @@
     "subtitle": "Advanced Programming — University of Tehran",
     "shipLog": "Ship's Log",
     "noLogs": "No logs recorded yet.",
+    "noLogsDescription": "No events recorded in the ship's log yet.",
+    "map": "Harbor Map",
+    "worldHarbor": "Lighthouse World · Harbor",
     "lumens": "Lumens",
     "lumenShort": "L",
     "stages": {

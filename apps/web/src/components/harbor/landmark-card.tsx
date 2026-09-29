@@ -7,6 +7,8 @@ import {
   LandmarkStageBadge,
   Progress,
   cn,
+  formatLocaleInteger,
+  persianizeDigits,
 } from "@lighthouse/ui";
 import type { LandmarkMeta } from "./landmark-icons";
 
@@ -55,7 +57,7 @@ export function LandmarkCard({ landmark, stage, totalLumens, locale }: LandmarkC
     ? (STAGE_NAMES_FA[stage] ?? stage.replace(/_/g, " "))
     : (STAGE_NAMES_EN[stage] ?? stage.replace(/_/g, " "));
 
-  const formattedLumens = isFa ? totalLumens.toLocaleString("fa-IR") : totalLumens.toLocaleString();
+  const formattedLumens = formatLocaleInteger(totalLumens, locale);
 
   const unit = isFa ? "لومن" : "L";
   const style = STAGE_STYLES[stage] ?? STAGE_STYLES.dormant;
@@ -96,9 +98,7 @@ export function LandmarkCard({ landmark, stage, totalLumens, locale }: LandmarkC
             <span>
               {formattedLumens} {unit}
             </span>
-            <span>
-              {isFa ? `${progressPercent.toLocaleString("fa-IR")}٪` : `${progressPercent}%`}
-            </span>
+            <span>{isFa ? `${persianizeDigits(progressPercent)}٪` : `${progressPercent}%`}</span>
           </div>
           <Progress value={progressPercent} className="mt-1.5 h-1.5" />
         </div>
